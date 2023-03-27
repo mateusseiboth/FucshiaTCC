@@ -32,42 +32,41 @@ export default function App() {
       <View>
         <Image
           style={styles.tinyLogo}
-          source={require('./assets/logo.png')}
+          source={require('./assets/logoBaixaQualidade.png')}
         />
       </View>
-
+      <View >
+        <Text style={[styles.fucshia, styles.title]} >Fuchsia</Text>    
+      </View>
+      
       <View>
+        <Text>
+          Bem vindo ao
+          <Text style={[styles.fucshia]}> Fucshia Home Assistant </Text>
+          ! Deixe me guiá-lo em sua primeira configuração.
+        </Text>
+      </View>   
+      {/* <View>
         <TouchableOpacity  onPress={changeImage}>
           <Image
             style={styles.tinyLogo}
             source={flagImage === true ?
-              require('./assets/icons8-charmander-96OFF.png') :
               require('./assets/icons8-charmander-96ON.png')}           
+              require('./assets/icons8-charmander-96OFF.png') :
           />
         </TouchableOpacity>
 
         <Text>
           {flagImage == true ? 'CharmanderOFF' : 'CharmanderON' }          
         </Text>
-
-
-
-      </View>
+      </View> */}
     </KeyboardAvoidingView>
   );
-
-
-
-
 }
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 32,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
@@ -79,5 +78,12 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 100,
     height: 100
-  }
+  },
+  fucshia: {
+    color: "#FF00FF",
+    fontWeight: "bold" 
+  },
+  title: {
+    fontSize: 32
+  } 
 });
