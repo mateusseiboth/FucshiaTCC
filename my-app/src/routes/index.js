@@ -1,6 +1,6 @@
-import * as React from 'react';   
-import { NavigationContainer } from '@react-navigation/native';
+import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import BemVindo from "../pages/BemVindo"
 import FucshiaHome from '../pages/FucshiaHome'
 
@@ -12,11 +12,13 @@ export default function Routes() {
       <Stack.Screen
         name="Bem Vindo"
         component={BemVindo}
+        options={{headerShown:false}}
       />
-  
+
       <Stack.Screen
         name="Fucshia Home"
         component={FucshiaHome}
+        options={{headerShown:false}}
       />
     </Stack.Navigator>
   );
