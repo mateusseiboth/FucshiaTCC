@@ -1,18 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import FucshiaHome from "./src/pages/FucshiaHome";
 import Routes from "./src/routes/";
+import { StatusBar } from "react-native";
 
 
 
-export default function App() { 
+export default function App() {
   return (
-    <NavigationContainer>            
-    <Routes>
-      
-    </Routes>
-    </NavigationContainer>
+    <NavigationContainer>      
+      <StatusBar backgroundColor="#FF00FF" barStyle="dark-content" />
+      <Routes />
+    </NavigationContainer>    
   );
 }
 
