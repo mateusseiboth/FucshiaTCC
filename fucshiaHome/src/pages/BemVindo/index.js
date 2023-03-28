@@ -29,8 +29,8 @@ export default function BemVindo() {
             </View>
 
             <View style={styles.containerButton}>
-                <FuchsiaButton text="Avançar"></FuchsiaButton>
-                <FuchsiaButton text="Desisto, não quero minha casa automática"></FuchsiaButton>
+                <FuchsiaButton text="Avançar" route="Charmander"></FuchsiaButton>
+                <FuchsiaButton text="Desisto, não quero minha casa automática" route="FucshiaHome"></FuchsiaButton>
             </View>
         </View>
     );
