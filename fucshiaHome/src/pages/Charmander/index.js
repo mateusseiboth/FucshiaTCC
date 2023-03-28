@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useState, useEffect} from 'react';
+import { StyleSheet,Text, Image, TouchableOpacity, View } from 'react-native';
+import { useState, useEffect } from 'react';
 
 
 export default function Charmander() {
 
-  const [flagImage, setflagImage] = useState(true)
+  const [flagImage, setflagImage] = useState(true);
 
   const changeImage = () => {
-    setflagImage(!flagImage)
-    console.log("meow")
+    setflagImage(!flagImage)    
   }
 
   useEffect(() => {
@@ -38,25 +36,11 @@ export default function Charmander() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 32,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    width: 66,
-    height: 58,
-  },
   tinyLogo: {
-    width: 100,
-    height: 100
-  },
-  fucshia: {
-    color: "#FF00FF",
-    fontWeight: "bold"
-  },
-  title: {
-    fontSize: 32
+      width: 100,
+      height: 100
   }
 });
+
+
+
