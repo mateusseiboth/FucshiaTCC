@@ -4,7 +4,7 @@ import FuchsiaButton from '../../components/FucshiaButton';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 
-export default function BemVindo1() {
+export default function Setup1() {
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
 
@@ -51,7 +51,7 @@ export default function BemVindo1() {
                     Toque para iniciar busca</Text>
                 </View>
                 <FuchsiaButton text="Buscar" onPress={() => handleAction('wifi')}></FuchsiaButton>
-                <FuchsiaButton text="Avançar" onPress={() => handleCommand('Mandei parar')}></FuchsiaButton>
+                <FuchsiaButton text="Avançar" onPress={() => handleRoute('Setup GPIO')}></FuchsiaButton>
             </View>
         </View>
     );

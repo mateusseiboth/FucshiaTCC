@@ -41,7 +41,7 @@ export default function BemVindo() {
             </View>
 
             <View style={styles.containerButton}>
-                <FuchsiaButton text="Avançar" onPress={() => handleRoute('BemVindo1')}></FuchsiaButton>
+                <FuchsiaButton text="Avançar" onPress={() => handleRoute('Setup1')}></FuchsiaButton>
                 <FuchsiaButton text="Desisto, não quero minha casa automática" onPress={() => handleCommand('Mandei parar')}></FuchsiaButton>
             </View>
         </View>

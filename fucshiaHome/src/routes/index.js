@@ -30,8 +30,8 @@ export default function Routes() {
       />
 
       <Stack.Screen
-        name="BemVindo1"
-        component={Bemvindo1}
+        name="Setup1"
+        component={Setup1}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
