@@ -1,10 +1,18 @@
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function FuchsiaButton({text}) {
+export default function FuchsiaButton({text, route}) {
+
+    const navigation = useNavigation();
+    
+    function handleRoute (route) {
+        navigation.navigate(route)
+    }
+
     return (
         <View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress= { () => handleRoute(route)}>
                 <Text style={styles.textButton}>
                     {text}
                 </Text>
