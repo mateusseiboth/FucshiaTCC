@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import BemVindo from "../pages/BemVindo"
 import FucshiaHome from '../pages/FucshiaHome'
-import Charmander from '../pages/Charmander'
+import Charmander from '../pages/Charmander';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +17,7 @@ export default function Routes() {
       />
 
       <Stack.Screen
-        name="Fucshia Home"
+        name="FucshiaHome"
         component={FucshiaHome}
         options={{ headerShown: false }}
       />

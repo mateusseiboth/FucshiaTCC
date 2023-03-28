@@ -8,8 +8,7 @@ export default function Charmander() {
   const [flagImage, setflagImage] = useState(true);
 
   const changeImage = () => {
-    setflagImage(!flagImage)
-    console.log("meow")
+    setflagImage(!flagImage)    
   }
 
   useEffect(() => {
@@ -37,33 +36,10 @@ export default function Charmander() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      backgroundColor: "#fff",
-      alignItems: "center",
-      justifyContent: "center",
-  },
-  containerLogo: {
-      flex: 1,
-  },
-  containerTitle: {
-      flex: 0.5
-
-  },
-  containerButton: {
-      flex: 2
-  },
   tinyLogo: {
-      width: 230,
-      height: 230
-  },
-  fucshia: {
-      color: "#FF00FF",
-      fontWeight: "bold"
-  },
-  title: {
-      fontSize: 32
-  }  
+      width: 100,
+      height: 100
+  }
 });
 
 
