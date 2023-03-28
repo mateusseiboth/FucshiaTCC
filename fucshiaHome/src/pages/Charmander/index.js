@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { StyleSheet,Text, Image, TouchableOpacity, View } from 'react-native';
+import { useState, useEffect } from 'react';
 
 
 export default function Charmander() {
 
-  const [flagImage, setflagImage] = useState(true)
+  const [flagImage, setflagImage] = useState(true);
 
   const changeImage = () => {
     setflagImage(!flagImage)
@@ -22,8 +22,8 @@ export default function Charmander() {
         <Image
           style={styles.tinyLogo}
           source={flagImage === true ?
-            require('./assets/icons8-charmander-96OFF.png') :
-            require('./assets/icons8-charmander-96ON.png')
+            require('../../../assets/icons8-charmander-96OFF.png') :
+            require('../../../assets/icons8-charmander-96ON.png')
           }
         />
       </TouchableOpacity>
@@ -36,27 +36,35 @@ export default function Charmander() {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
-    flex: 32,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+      flex: 1,
+      backgroundColor: "#fff",
+      alignItems: "center",
+      justifyContent: "center",
   },
-  logo: {
-    width: 66,
-    height: 58,
+  containerLogo: {
+      flex: 1,
+  },
+  containerTitle: {
+      flex: 0.5
+
+  },
+  containerButton: {
+      flex: 2
   },
   tinyLogo: {
-    width: 100,
-    height: 100
+      width: 230,
+      height: 230
   },
   fucshia: {
-    color: "#FF00FF",
-    fontWeight: "bold"
+      color: "#FF00FF",
+      fontWeight: "bold"
   },
   title: {
-    fontSize: 32
-  }
+      fontSize: 32
+  }  
 });
+
+
+
