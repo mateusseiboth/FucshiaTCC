@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { Button, Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import FuchsiaButton from '../../components/FucshiaButton';
 
 export default function BemVindo() {
     return (
@@ -29,25 +29,9 @@ export default function BemVindo() {
             </View>
 
             <View style={styles.containerButton}>
-                <View>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.textButton}>
-                            Avançar
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.textButton}>
-                            Desisto, não quero minha casa automática
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+                <FuchsiaButton text="Avançar"></FuchsiaButton>
+                <FuchsiaButton text="Desisto, não quero minha casa automática"></FuchsiaButton>
             </View>
-
-
-
         </View>
     );
 }
@@ -64,10 +48,10 @@ const styles = StyleSheet.create({
     },
     containerTitle: {
         flex: 0.5
-        
+
     },
     containerButton: {
-        flex: 2        
+        flex: 2
     },
     tinyLogo: {
         width: 230,
@@ -79,18 +63,5 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32
-    },
-    button: {        
-        borderRadius: 50,
-        paddingVertical: 10,    
-        margin: 5,
-        alignSelf: 'center',
-        width: '80%',       
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#FF00FF'
-    },
-    textButton: {
-        color: 'black'
-    }
+    }  
 });
