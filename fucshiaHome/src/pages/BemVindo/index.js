@@ -1,8 +1,20 @@
 import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import FuchsiaButton from '../../components/FucshiaButton';
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function BemVindo() {
+    const navigation = useNavigation();
+
+    function handleRoute(route){
+       navigation.navigate(route, {});
+      }
+
+      function handleCommand(route){
+        console.log(route)
+       }
+       
     return (
         <View style={styles.container}>
             <View style={styles.containerLogo}>
@@ -29,8 +41,8 @@ export default function BemVindo() {
             </View>
 
             <View style={styles.containerButton}>
-                <FuchsiaButton text="Avançar" route="Charmander"></FuchsiaButton>
-                <FuchsiaButton text="Desisto, não quero minha casa automática" route="FucshiaHome"></FuchsiaButton>
+                <FuchsiaButton text="Avançar" onPress={() => handleRoute('FucshiaHome')}></FuchsiaButton>
+                <FuchsiaButton text="Desisto, não quero minha casa automática" onPress={() => handleCommand('Mandei parar')}></FuchsiaButton>
             </View>
         </View>
     );
