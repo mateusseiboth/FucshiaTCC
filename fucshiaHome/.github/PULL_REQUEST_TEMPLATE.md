@@ -1,15 +1,15 @@
 🦖 **Descrição** 🦖 
 
-<ul>
-    <li>Inclua um resumo das alterações e os problemas relacionados. </li>
-</ul>
-
+- Inclua um resumo das alterações e os problemas relacionados.
 
 🦕 **Tipo de mudança** 🦕
 
 - [ ] Correção de bug (alteração ininterrupta que corrige um problema)
 - [ ] Novo recurso (alteração ininterrupta que adiciona funcionalidade)
 - [ ] Esta alteração requer uma atualização de documentação
+
+
+
 
 
 
@@ -40,3 +40,6 @@
 ⠀⠀⠀⠀⠀⠀⠀⢻⣿⣬⡿⠀⢻⡓⠊⣸⡏⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡿⣏⡾⡇⣼⡄⠙⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⣀⣈⠉⠛⢉⡉⣛⢉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⡿⡧⠛⠳⠤⠼⣾⠆⠀⠀
 
+@flaviojrdev 
+@mateusseiboth 
+@Gabaraael  
