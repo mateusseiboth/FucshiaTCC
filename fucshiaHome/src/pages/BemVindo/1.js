@@ -1,20 +1,23 @@
 import * as React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import FuchsiaButton from '../../components/FucshiaButton';
 import { useNavigation } from '@react-navigation/native';
+import { useState, useEffect } from 'react';
 
-
-export default function BemVindo() {
+export default function BemVindo1() {
     const navigation = useNavigation();
+    const [loading, setLoading] = useState(false);
 
-    function handleRoute(route){
-       navigation.navigate(route, {});
-      }
+    function handleRoute(route) {
+        navigation.navigate(route, {});
+    }
 
-      function handleCommand(route){
-        console.log(route)
-       }
-       
+    function handleAction(route) {
+        if (route === 'wifi') {
+            setLoading(true);
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.containerLogo}>
@@ -30,19 +33,25 @@ export default function BemVindo() {
 
             <View style={styles.containerTitle}>
                 <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
-                    Bem vindo ao
-                    <Text style={[styles.fucshia]}> Fucshia Home Assistant</Text>
+                    Precisamos de acesso a sua localização
+                    <Text style={[styles.fucshia]}> apenas para buscar dispositivos próximos. </Text>
+                    Após a busca os dispositivos irão ser listados abaixo
                 </Text>
-                <View>
-                    <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
-                        Deixe me guiá-lo em sua primeira configuração.
-                    </Text>
-                </View>
             </View>
 
-            <View style={styles.containerButton}>
-                <FuchsiaButton text="Avançar" onPress={() => handleRoute('BemVindo1')}></FuchsiaButton>
-                <FuchsiaButton text="Desisto, não quero minha casa automática" onPress={() => handleCommand('Mandei parar')}></FuchsiaButton>
+
+            {loading ? (<View >
+                <ActivityIndicator />
+                <Text>Buscando</Text>
+            </View>) : (<View></View>)}
+
+            <View style={{position: 'absolute', left: 0, right: 0, bottom: 0}} >
+                <View>
+                    <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                    Toque para iniciar busca</Text>
+                </View>
+                <FuchsiaButton text="Buscar" onPress={() => handleAction('wifi')}></FuchsiaButton>
+                <FuchsiaButton text="Avançar" onPress={() => handleCommand('Mandei parar')}></FuchsiaButton>
             </View>
         </View>
     );
@@ -56,14 +65,17 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     containerLogo: {
-        flex: 1,
+        position: 'absolute', 
+        top: 0
     },
     containerTitle: {
         flex: 0.5
 
     },
     containerButton: {
-        flex: 2
+        flex: 2,
+        width:150,
+        height:50,
     },
     tinyLogo: {
         width: 230,

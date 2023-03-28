@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import BemVindo from "../pages/BemVindo"
+import Bemvindo1 from "../pages/BemVindo/1.js"
 import FucshiaHome from '../pages/FucshiaHome'
 import Charmander from '../pages/Charmander';
 
@@ -25,6 +26,12 @@ export default function Routes() {
       <Stack.Screen
         name="Charmander"
         component={Charmander}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="BemVindo1"
+        component={Bemvindo1}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
