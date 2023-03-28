@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useState, useEffect} from 'react';
 
 
 export default function Charmander() {
@@ -22,8 +23,8 @@ export default function Charmander() {
         <Image
           style={styles.tinyLogo}
           source={flagImage === true ?
-            require('./assets/icons8-charmander-96OFF.png') :
-            require('./assets/icons8-charmander-96ON.png')
+            require('../../../assets/icons8-charmander-96OFF.png') :
+            require('../../../assets/icons8-charmander-96ON.png')
           }
         />
       </TouchableOpacity>
@@ -35,7 +36,6 @@ export default function Charmander() {
 
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
