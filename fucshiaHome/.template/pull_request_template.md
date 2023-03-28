@@ -1,7 +1,7 @@
 🦖 **Descrição** 🦖 
 
 <ul>
-    <li>Inclua um resumo das alterações e o problema relacionado. </li>
+    <li>Inclua um resumo das alterações e os problemas relacionados. </li>
 </ul>
 
 
