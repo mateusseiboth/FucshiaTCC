@@ -5,8 +5,8 @@ import SetupStyle from './style.js';
 
 export default function SetupTemplate() {
     return (
-        
         <View style={SetupStyle.container}>
+        <View style={SetupStyle.bolinha}></View>
                 <View style={SetupStyle.containerLogo}>
                     <Image
                         style={SetupStyle.tinyLogo}
@@ -15,10 +15,11 @@ export default function SetupTemplate() {
                     />
                 </View>
             
-
+               
             <View style={SetupStyle.container}>
                 <Text style={[SetupStyle.fucshia, SetupStyle.title]} >Fuchsia</Text>
             </View>
+            <View style={[SetupStyle.bolinha, SetupStyle.bolinhaBaixo]}></View>
             
         </View>
     );
