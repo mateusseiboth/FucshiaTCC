@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import SetupTemplate from '../../components/SetupTemplate/index.js';
 import SetupStyle from '../../components/SetupTemplate/style';
 
-export default function Setup2() {
+export default function Setup3() {
     const navigation = useNavigation();
 
     function handleRoute(route) {
@@ -20,26 +20,26 @@ export default function Setup2() {
 
     return (
         <View style={SetupStyle.container}>
-            <SetupTemplate titulo="Associe as Placas">
+            <SetupTemplate titulo="Aguarde a configuração">
 
             </SetupTemplate>
 
-            <View style={SetupStyle.containerItens}>
-            <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
-                    Configure abaixo o GPIO
-                    <Text style={[SetupStyle.fucshia]}> com o ambiente correspondente </Text>
+            <View style={SetupStyle.containerComum}>
+                <Text style={[SetupStyle.fucshia, SetupStyle.centerFuc]}>
+                    Teste 2/2 Concluído.
                 </Text>
+                <Text style={[SetupStyle.subTitle]}> Tudo Certo! </Text>
             </View>
 
             <View style={SetupStyle.containerTitle}>
-                
-               
+
+
             </View>
 
             <View style={SetupStyle.containerButton} >
-                
+
                 <FuchsiaButton text="Ajuda" onPress={() => handleAction('ajudaporfavorsocorro')}></FuchsiaButton>
-                <FuchsiaButton text="Avançar" onPress={() => handleRoute('Setup3')}></FuchsiaButton>
+                <FuchsiaButton text="Avançar" onPress={() => handleRoute('Confirmar')}></FuchsiaButton>
             </View>
         </View>
     );

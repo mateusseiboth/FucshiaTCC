@@ -22,31 +22,33 @@ export default function Setup1() {
 
     return (
         <View style={SetupStyle.container}>
-            <SetupTemplate>
+            <SetupTemplate titulo="Selecione as placas" />
 
-            </SetupTemplate>
-
-            <View style={SetupStyle.containerTitle}>
+            <View style={SetupStyle.containerItens}>
                 <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
                     Precisamos de acesso a sua localização
                     <Text style={[SetupStyle.fucshia]}> para buscar dispositivos próximos. </Text>
                 </Text>
                 <View>
                     <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
-                       Toque abaixo para permitir
+                        Toque abaixo para permitir
                     </Text>
+                </View>
+                <View style={{ position: 'absolute', bottom: 0, alignSelf: 'center' }}>
+                    {loading ? (<View style={{alignSelf: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator />
+                        <Text>Buscando</Text>
+                    </View>) : (<View></View>)}
+                    <FuchsiaButton text="Buscar" onPress={() => handleAction('wifi')}></FuchsiaButton>
                 </View>
             </View>
 
 
-            {loading ? (<View >
-                <ActivityIndicator />
-                <Text>Buscando</Text>
-            </View>) : (<View></View>)}
+
 
             <View style={SetupStyle.containerButton} >
-                
-                <FuchsiaButton text="Buscar" onPress={() => handleAction('wifi')}></FuchsiaButton>
+
+
                 <FuchsiaButton text="Avançar" onPress={() => handleRoute('Setup2')}></FuchsiaButton>
             </View>
         </View>
