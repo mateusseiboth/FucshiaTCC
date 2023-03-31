@@ -1,12 +1,23 @@
 import * as React from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Text, View} from 'react-native';
 import FuchsiaButton from '../../components/FucshiaButton';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 import SetupTemplate from '../../components/SetupTemplate/index.js';
 import SetupStyle from '../../components/SetupTemplate/style';
+import { scanNetwork } from '../../utils/index';
 
 export default function Setup1() {
+    const [devices, setDevices] = useState([]);
+    const fetchDevices = async () => {
+        scanNetwork(devicesFound => {
+            setDevices(devicesFound);
+        }, err => {
+            console.log(err);
+        });
+        
+      };
+
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
 
@@ -16,7 +27,9 @@ export default function Setup1() {
 
     function handleAction(route) {
         if (route === 'wifi') {
+            fetchDevices();
             setLoading(true);
+            
         }
     }
 
