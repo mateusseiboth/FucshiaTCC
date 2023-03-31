@@ -7,6 +7,7 @@ import SetupTemplate from '../../components/SetupTemplate/index.js';
 import SetupStyle from '../../components/SetupTemplate/style';
 import { scanNetwork } from '../../utils/index';
 
+
 export default function Setup1() {
     const [devices, setDevices] = useState([]);
     const fetchDevices = async () => {
