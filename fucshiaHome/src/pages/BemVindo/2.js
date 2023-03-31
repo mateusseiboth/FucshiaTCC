@@ -37,7 +37,7 @@ export default function Setup2() {
             </View>
 
             <View style={SetupStyle.containerButton} >
-                
+                <FuchsiaButton text="Voltar" onPress={() => navigation.goBack()}></FuchsiaButton>
                 <FuchsiaButton text="Ajuda" onPress={() => handleAction('ajudaporfavorsocorro')}></FuchsiaButton>
                 <FuchsiaButton text="Avançar" onPress={() => handleRoute('Setup3')}></FuchsiaButton>
             </View>
