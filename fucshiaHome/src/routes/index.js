@@ -6,6 +6,7 @@ import Setup1 from "../pages/BemVindo/1.js"
 import FucshiaHome from '../pages/FucshiaHome'
 import Charmander from '../pages/Charmander';
 import Setup2 from "../pages/BemVindo/2.js"
+import Setup3 from "../pages/BemVindo/3.js"
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,12 @@ export default function Routes() {
       <Stack.Screen
         name="Setup2"
         component={Setup2}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Setup3"
+        component={Setup3}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

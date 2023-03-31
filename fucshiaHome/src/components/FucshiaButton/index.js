@@ -17,12 +17,13 @@ const styles = StyleSheet.create({
       button: {
         borderRadius: 50,
         paddingVertical: 10,
-        margin: 5,
-        alignSelf: 'center',
-        width: '80%',
+        margin: 10,
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#FF00FF'
+        backgroundColor: '#FF00FF',
+        
+        
     },
     textButton: {
         color: 'black'
