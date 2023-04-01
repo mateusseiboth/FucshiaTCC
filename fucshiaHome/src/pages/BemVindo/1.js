@@ -1,14 +1,31 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import FuchsiaButton from '../../components/FucshiaButton';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 import SetupTemplate from '../../components/SetupTemplate/index.js';
 import SetupStyle from '../../components/SetupTemplate/style';
+import { scanNetwork } from '../../utils/index';
+
 
 export default function Setup1() {
-    const navigation = useNavigation();
+    const [devices, setDevices] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const fetchDevices = async () => {
+        try {
+            const devicesFound = await scanNetwork();
+            setDevices(devicesFound);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        setLoading(false);
+    }, [devices]);
+
+    const navigation = useNavigation();
 
     function handleRoute(route) {
         navigation.navigate(route, {});
@@ -16,6 +33,7 @@ export default function Setup1() {
 
     function handleAction(route) {
         if (route === 'wifi') {
+            fetchDevices();
             setLoading(true);
         }
     }
@@ -33,9 +51,12 @@ export default function Setup1() {
                     <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
                         Toque abaixo para permitir
                     </Text>
+                    {devices.map((device, index) => (
+                        <FuchsiaButton key={index} text={device.IP} onPress={() => console.log('aaainnnnn')}></FuchsiaButton>
+                    ))}
                 </View>
                 <View style={{ position: 'absolute', bottom: 0, alignSelf: 'center' }}>
-                    {loading ? (<View style={{alignSelf: 'center', alignItems: 'center' }}>
+                    {loading ? (<View style={{ alignSelf: 'center', alignItems: 'center' }}>
                         <ActivityIndicator />
                         <Text>Buscando</Text>
                     </View>) : (<View></View>)}
