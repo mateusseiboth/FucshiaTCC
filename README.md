@@ -6,7 +6,7 @@
 
 Este projeto foi desenvolvido por Flávio Júnior, Mateus Seiboth e Gabriel Evangelista como parte de um trabalho de conclusão de curso.
 
-O objetivo deste projeto é criar um sistema de automação residencial com a utilização do Home Assistant e implementar o mesmo em um servidor local.
+O objetivo deste projeto é criar um sistema de automação residencial, sem a necessidade de um servidor intermediário. A placa do dispositivo irá se comunicar diretamente com o celular do usuário para controlar e integrar vários dispositivos em um único lugar.
 
 ![divBar](https://user-images.githubusercontent.com/117425361/229288307-a1de7b33-f4ff-4bac-8090-089e22d6f452.png)
 
@@ -23,9 +23,15 @@ O objetivo deste projeto é criar um sistema de automação residencial com a ut
 
 ## 🏡 Sobre o projeto
 
-O Home Assistant é um sistema de automação residencial de código aberto que permite controlar vários dispositivos e integrações em um único lugar. Ele é altamente customizável e pode ser executado em vários dispositivos, incluindo Raspberry Pi, servidores, NUCs e muito mais.
+O Fuchsia é um sistema de automação residencial personalizado que não requer um servidor para funcionar. Em vez disso, a placa do dispositivo se comunica diretamente com o celular do usuário, sem intermediários. Essa abordagem traz algumas vantagens, como:
 
-O objetivo deste projeto é instalar e configurar o Home Assistant em um servidor local e implementar automações residenciais.
+- **Maior privacidade e segurança**: Como não há servidor intermediário, as informações do sistema de automação residencial não são armazenadas em um terceiro e não são compartilhadas com outros usuários ou empresas, garantindo maior privacidade e segurança.
+
+- **Maior estabilidade**: Sem a necessidade de um servidor intermediário, o sistema é mais estável e confiável, pois não há risco de quedas de conexão do servidor, interrupções do serviço ou atualizações inesperadas.
+
+- **Maior controle e personalização**: Com o sistema se comunicando diretamente com o celular do usuário, é possível personalizar e ajustar as configurações de automação de acordo com as necessidades e preferências individuais.
+
+O Fuchsia oferece uma maneira simples e flexível de automatizar e controlar dispositivos em casa, permitindo que os usuários personalizem e gerenciem sua automação residencial de forma mais eficiente e segura.
 
 ![divBar](https://user-images.githubusercontent.com/117425361/229288307-a1de7b33-f4ff-4bac-8090-089e22d6f452.png)
 
@@ -33,27 +39,24 @@ O objetivo deste projeto é instalar e configurar o Home Assistant em um servido
 
 - Node.JS
 - React Native
-- MQTT
-- Docker
-- Raspberry Pi
 
 ![divBar](https://user-images.githubusercontent.com/117425361/229288307-a1de7b33-f4ff-4bac-8090-089e22d6f452.png)
 
 ## 📥 Instalação
 
-Para instalar o Home Assistant, siga as instruções no [guia oficial de instalação](https://www.home-assistant.io/installation/). 
+Em construção.
 
 ![divBar](https://user-images.githubusercontent.com/117425361/229288307-a1de7b33-f4ff-4bac-8090-089e22d6f452.png)
 
-## ⚙️ Configuração
+## ⚙ Configuração
 
-Após a instalação, você precisará configurar o Home Assistant para se adaptar às suas necessidades. A documentação oficial do Home Assistant é uma ótima fonte de informações sobre como fazer isso. Você pode encontrá-la [aqui](https://www.home-assistant.io/docs/configuration/).
+Em construção.
 
 ![divBar](https://user-images.githubusercontent.com/117425361/229288307-a1de7b33-f4ff-4bac-8090-089e22d6f452.png)
 
 ## 💡 Utilização
 
-Após a instalação e configuração, o Home Assistant pode ser usado para automatizar uma variedade de dispositivos residenciais, como luzes, termostatos, sensores e muito mais. A documentação oficial do Home Assistant é uma ótima fonte de informações sobre como fazer isso. Você pode encontrá-la [aqui](https://www.home-assistant.io/docs/).
+Em construção.
 
 ![divBar](https://user-images.githubusercontent.com/117425361/229288307-a1de7b33-f4ff-4bac-8090-089e22d6f452.png)
 
