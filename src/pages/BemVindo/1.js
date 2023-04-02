@@ -1,20 +1,20 @@
-import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {ActivityIndicator, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import FuchsiaButton from '../../components/FucshiaButton';
 import {useNavigation} from '@react-navigation/native';
-import SetupTemplate from '../../components/SetupTemplate/index.js';
+import SetupTemplate from '../../components/SetupTemplate';
 import SetupStyle from '../../components/SetupTemplate/style';
-import {scanNetwork} from '../../utils/index';
-import {PERMISSIONS} from 'react-native-permissions';
-import {request} from 'react-native-permissions';
-import {Progress, ProgressBar} from 'react-native-paper';
+import {scanNetwork} from '../../utils/Search/index';
+import {PERMISSIONS, request} from 'react-native-permissions';
+import {ProgressBar} from 'react-native-paper';
 
 export default function Setup1() {
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
-  const permitir = async () => {
+  // função para solicitar permissão de localização
+    const permitir = async () => {
     try {
       const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
       if (result === 'granted') {
@@ -35,12 +35,6 @@ export default function Setup1() {
     }
   };
 
-  useEffect(() => {
-    setLoading(false);
-  }, [devices]);
-
-  const navigation = useNavigation();
-
   function handleRoute(route) {
     navigation.navigate(route, {});
   }
@@ -52,6 +46,10 @@ export default function Setup1() {
     }
   }
 
+  useEffect(() => {
+    setLoading(false);
+  }, [devices]);
+
   return (
     <View style={SetupStyle.container}>
       <SetupTemplate titulo="Selecione as placas" currentPage={1} />
@@ -60,12 +58,11 @@ export default function Setup1() {
         <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
           Precisamos de acesso a sua localização
           <Text style={[SetupStyle.fucshia]}>
-            {' '}
-            para buscar dispositivos próximos.{' '}
+            para buscar dispositivos próximos.
           </Text>
         </Text>
         <View>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center', alignItems: 'center'}}>
             Toque abaixo para permitir
           </Text>
           {devices.map((device, index) => (
