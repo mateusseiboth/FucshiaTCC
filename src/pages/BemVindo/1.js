@@ -8,7 +8,7 @@ import SetupStyle from '../../components/SetupTemplate/style';
 import {scanNetwork} from '../../utils/index';
 import {PERMISSIONS} from 'react-native-permissions';
 import {request} from 'react-native-permissions';
-import {PermissionsAndroid} from 'react-native';
+import {Progress, ProgressBar} from 'react-native-paper';
 
 export default function Setup1() {
   const [devices, setDevices] = useState([]);
@@ -54,7 +54,7 @@ export default function Setup1() {
 
   return (
     <View style={SetupStyle.container}>
-      <SetupTemplate titulo="Selecione as placas" />
+      <SetupTemplate titulo="Selecione as placas" currentPage={1} />
 
       <View style={SetupStyle.containerItens}>
         <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
@@ -76,16 +76,20 @@ export default function Setup1() {
             />
           ))}
         </View>
-        <View style={{position: 'absolute', bottom: 0, alignSelf: 'center'}}>
+        <View style={{position: 'absolute', bottom: 0, alignSelf: 'center', alignContent: 'center', alignItems: 'center'}}>
           {loading ? (
-            <View style={{alignSelf: 'center', alignItems: 'center'}}>
-              <ActivityIndicator />
-              <Text>Buscando</Text>
+            <View style={{alignSelf: 'center'}}>
+              <ProgressBar
+                indeterminate={true}
+                width={300}
+                color={'#F49AC1'}
+                style={{marginTop: 20}}
+              />
             </View>
           ) : (
             <View />
           )}
-          <FuchsiaButton text="Buscar" onPress={() => handleAction('wifi')} />
+          <FuchsiaButton text="   Buscar   " onPress={() => handleAction('wifi')} />
         </View>
       </View>
 
