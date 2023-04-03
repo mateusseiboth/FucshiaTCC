@@ -9,7 +9,7 @@ import {StatusBar} from 'react-native';
 function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#FFFFFF" barStyle="light-content" />
+      <StatusBar backgroundColor="#1B1B1B" barStyle="light-content" />
       <Routes />
     </NavigationContainer>
   );

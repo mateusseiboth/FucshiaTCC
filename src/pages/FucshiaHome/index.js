@@ -9,28 +9,3 @@ export default function FucshiaHome() {
     </View>
   );
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 32,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logo: {
-    width: 66,
-    height: 58,
-  },
-  tinyLogo: {
-    width: 100,
-    height: 100
-  },
-  fucshia: {
-    color: "#FF00FF",
-    fontWeight: "bold" 
-  },
-  title: {
-    fontSize: 32
-  } 
-});
