@@ -3,21 +3,21 @@ import {StyleSheet, useColorScheme} from 'react-native';
 const setupStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1B1B1B',
   },
   containerItens: {
     width: '88%',
     height: '60%',
     alignSelf: 'center',
     top: -20,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#252525',
   },
   containerComum: {
     width: '88%',
     height: '60%',
     alignSelf: 'center',
     top: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#1B1B1B',
   },
   containerSetup: {
     position: 'absolute',
@@ -37,7 +37,6 @@ const setupStyle = StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
     borderRadius: 8,
-    backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -62,17 +61,20 @@ const setupStyle = StyleSheet.create({
     alignSelf: 'center',
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: 'bold',
+    color: '#FFFFFF',
   },
   subTitle: {
     fontSize: 26,
     alignSelf: 'center',
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: 'bold',
+    color: '#FFFFFF',
   },
   centerFuc: {
     alignSelf: 'center',
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: 'bold',
+    backgroundColor: '#1B1B1B',
   },
   bolinha: {
     width: 30,

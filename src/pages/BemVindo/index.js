@@ -27,12 +27,12 @@ export default function BemVindo() {
 
       <View style={[homeStyle.bolinha, homeStyle.bolinhaBaixo]} />
       <View style={homeStyle.containerTitle}>
-        <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+        <Text style={{fontWeight: 'bold', alignSelf: 'center',  color: '#FFFFFF',}}>
           Bem vindo ao
           <Text style={[homeStyle.fucshia]}> Fucshia Home Assistant</Text>
         </Text>
         <View>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center',  color: '#FFFFFF',}}>
             Deixe me guiá-lo em sua primeira configuração.
           </Text>
         </View>
@@ -52,7 +52,7 @@ export default function BemVindo() {
 const homeStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1B1B1B',
     alignItems: 'center',
     justifyContent: 'center',
   },

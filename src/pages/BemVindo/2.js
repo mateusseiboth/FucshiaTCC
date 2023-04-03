@@ -23,7 +23,7 @@ export default function Setup2() {
       <SetupTemplate titulo="Associe as Placas" currentPage={2} />
 
       <View style={SetupStyle.containerItens}>
-        <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+        <Text style={{fontWeight: 'bold', alignSelf: 'center',  color: '#FFFFFF',}}>
           Configure abaixo o GPIO
           <Text style={[SetupStyle.fucshia]}>
             {' '}

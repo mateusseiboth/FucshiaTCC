@@ -55,14 +55,14 @@ export default function Setup1() {
       <SetupTemplate titulo="Selecione as placas" currentPage={1} />
 
       <View style={SetupStyle.containerItens}>
-        <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+        <Text style={{fontWeight: 'bold', alignSelf: 'center', color: '#FFFFFF'}}>
           Precisamos de acesso a sua localização
           <Text style={[SetupStyle.fucshia]}>
-            para buscar dispositivos próximos.
+            {' '} para buscar dispositivos próximos.
           </Text>
         </Text>
         <View>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center', alignItems: 'center'}}>
+          <Text style={{fontWeight: 'bold', alignSelf: 'center', alignItems: 'center', color: '#FFFFFF',}}>
             Toque abaixo para permitir
           </Text>
           {devices.map((device, index) => (
@@ -79,7 +79,7 @@ export default function Setup1() {
               <ProgressBar
                 indeterminate={true}
                 width={300}
-                color={'#F49AC1'}
+                color={'#FF00FF'}
                 style={{marginTop: 20}}
               />
             </View>
