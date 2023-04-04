@@ -39,7 +39,7 @@ export default function Setup3() {
         />
         <FuchsiaButton
           text="Avançar"
-          onPress={() => handleRoute('Confirmar')}
+          onPress={() => handleRoute('FucshiaHome')}
         />
       </View>
     </View>
