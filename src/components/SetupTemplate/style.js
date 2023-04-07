@@ -30,13 +30,9 @@ const setupStyle = StyleSheet.create({
   },
   containerButton: {
     flex: 0.5,
-    width: 150,
-    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
     flexDirection: 'row',
-    borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

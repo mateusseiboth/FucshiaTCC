@@ -1,12 +1,11 @@
-import {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
-import FuchsiaButton from '../../components/FucshiaButton';
-import {useNavigation} from '@react-navigation/native';
-import SetupTemplate from '../../components/SetupTemplate';
-import SetupStyle from '../../components/SetupTemplate/style';
-import {scanNetwork} from '../../utils/Search/index';
-import {PERMISSIONS, request} from 'react-native-permissions';
-import {ProgressBar} from 'react-native-paper';
+import { useEffect, useState } from "react";
+import { Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import SetupTemplate from "../../components/SetupTemplate";
+import SetupStyle from "../../components/SetupTemplate/style";
+import { scanNetwork } from "../../utils/Search/index";
+import { PERMISSIONS, request } from "react-native-permissions";
+import { ProgressBar, Button } from "react-native-paper";
 
 export default function Setup1() {
   const [devices, setDevices] = useState([]);
@@ -14,11 +13,11 @@ export default function Setup1() {
   const navigation = useNavigation();
 
   // função para solicitar permissão de localização
-    const permitir = async () => {
+  const permitir = async () => {
     try {
       const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-      if (result === 'granted') {
-        console.log('Permissão concedida!');
+      if (result === "granted") {
+        console.log("Permissão concedida!");
         fetchDevices();
       }
     } catch (error) {
@@ -30,6 +29,7 @@ export default function Setup1() {
     try {
       const devicesFound = await scanNetwork();
       setDevices(devicesFound);
+      console.log(devicesFound);
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +40,7 @@ export default function Setup1() {
   }
 
   function handleAction(route) {
-    if (route === 'wifi') {
+    if (route === "wifi") {
       permitir();
       setLoading(true);
     }
@@ -55,44 +55,80 @@ export default function Setup1() {
       <SetupTemplate titulo="Selecione as placas" currentPage={1} />
 
       <View style={SetupStyle.containerItens}>
-        <Text style={{fontWeight: 'bold', alignSelf: 'center', color: '#FFFFFF'}}>
+        <Text
+          style={{ fontWeight: "bold", alignSelf: "center", color: "#FFFFFF" }}
+        >
           Precisamos de acesso a sua localização
           <Text style={[SetupStyle.fucshia]}>
-            {' '} para buscar dispositivos próximos.
+            {" "}
+            para buscar dispositivos próximos.
           </Text>
         </Text>
         <View>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center', alignItems: 'center', color: '#FFFFFF',}}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              alignSelf: "center",
+              alignItems: "center",
+              color: "#FFFFFF",
+            }}
+          >
             Toque abaixo para permitir
           </Text>
           {devices.map((device, index) => (
             <FuchsiaButton
               key={index}
               text={device.IP}
-              onPress={() => console.log('aaainnnnn')}
+              onPress={() => console.log("aaainnnnn")}
             />
           ))}
         </View>
-        <View style={{position: 'absolute', bottom: 0, alignSelf: 'center', alignContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            alignSelf: "center",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
           {loading ? (
-            <View style={{alignSelf: 'center'}}>
+            <View style={{ alignSelf: "center" }}>
               <ProgressBar
                 indeterminate={true}
                 width={300}
-                color={'#FF00FF'}
-                style={{marginTop: 20}}
+                color={"#FF00FF"}
+                style={{ marginTop: 20 }}
               />
             </View>
           ) : (
             <View />
           )}
-          <FuchsiaButton text="   Buscar   " onPress={() => handleAction('wifi')} />
+          <Button
+            mode="contained"
+            buttonColor="#FF00FF"
+            onPress={() => handleAction("wifi")}
+          >
+            Buscar
+          </Button>
         </View>
       </View>
 
       <View style={SetupStyle.containerButton}>
-        <FuchsiaButton text="Voltar" onPress={() => navigation.goBack()} />
-        <FuchsiaButton text="Avançar" onPress={() => handleRoute('Setup2')} />
+        <Button
+          mode="contained"
+          buttonColor="#FF00FF"
+          onPress={() => navigation.goBack()}
+        >
+          Voltar
+        </Button>
+        <Button
+          mode="contained"
+          buttonColor="#FF00FF"
+          onPress={() => handleRoute("Setup2")}
+        >
+          Avançar
+        </Button>
       </View>
     </View>
   );

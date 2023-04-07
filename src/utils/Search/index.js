@@ -22,6 +22,7 @@ export async function scanNetwork() {
             response.headers['content-type'].includes('application/json')
           ) {
             return response.data;
+            console.log("Achei o " + host + "");
           } else {
             throw new Error('A resposta da requisição não é do tipo JSON.');
           }
