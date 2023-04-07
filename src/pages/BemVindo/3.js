@@ -1,20 +1,22 @@
-import * as React from 'react';
-import {Text, View} from 'react-native';
-import FuchsiaButton from '../../components/FucshiaButton';
-import {useNavigation} from '@react-navigation/native';
-import SetupTemplate from '../../components/SetupTemplate/index.js';
-import SetupStyle from '../../components/SetupTemplate/style';
+import * as React from "react";
+import { Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import SetupTemplate from "../../components/SetupTemplate/index.js";
+import SetupStyle from "../../components/SetupTemplate/style";
+import { IconButton, Button, MD3Colors } from "react-native-paper";
+import FucshiaModal from '../../components/Modal';
 
 export default function Setup3() {
   const navigation = useNavigation();
+  const [helpModalVisible, setHelpModalVisible] = React.useState(false);
 
   function handleRoute(route) {
     navigation.navigate(route, {});
   }
 
   function handleAction(route) {
-    if (route === 'ajudaporfavorsocorro') {
-      console.log('Aham aham aham');
+    if (route === "ajudaporfavorsocorro") {
+      setHelpModalVisible(true);
     }
   }
 
@@ -32,16 +34,39 @@ export default function Setup3() {
       <View style={SetupStyle.containerTitle} />
 
       <View style={SetupStyle.containerButton}>
-        <FuchsiaButton text="Voltar" onPress={() => navigation.goBack()} />
-        <FuchsiaButton
-          text="Ajuda"
-          onPress={() => handleAction('ajudaporfavorsocorro')}
-        />
-        <FuchsiaButton
-          text="Avançar"
-          onPress={() => handleRoute('FucshiaHome')}
-        />
+        <Button
+          mode="contained"
+          buttonColor="#FF00FF"
+          onPress={() => navigation.goBack()}
+        >
+          Voltar
+        </Button>
+        <Button
+          mode="contained"
+          buttonColor="#FF00FF"
+          onPress={() => handleAction("ajudaporfavorsocorro")}
+        >
+          Ajuda
+        </Button>
+        <Button
+          mode="contained"
+          buttonColor="#FF00FF"
+          onPress={() => handleRoute("FucshiaHome")}
+        >
+          Avançar
+        </Button>
       </View>
+
+      <FucshiaModal
+        visible={helpModalVisible}
+        onClose={() => setHelpModalVisible(false)}
+        title="Ajuda"
+        content={`Para receber ajuda por favor entre em contato no número abaixo:
+         ${"\n"}(11) 99999-9999 
+         ${"\n"}ou pelo email:
+         ${"\n"}fucshia@golpedocartaocromado.com.br`}
+
+      />
     </View>
   );
 }
