@@ -65,22 +65,14 @@ export default function Setup1() {
           </Text>
         </Text>
         <View>
-          <Text
-            style={{
-              fontWeight: "bold",
-              alignSelf: "center",
-              alignItems: "center",
-              color: "#FFFFFF",
-            }}
-          >
-            Toque abaixo para permitir
-          </Text>
           {devices.map((device, index) => (
-            <FuchsiaButton
+            <Button
               key={index}
-              text={device.IP}
+              mode="contained"
+              buttonColor="#FF00FF"
+              style={{alignContent: "center", alignItems: "center", alignSelf: "center", marginVertical: 4, width: 100, height: 40}}
               onPress={() => console.log("aaainnnnn")}
-            />
+            >{device.IP}</Button>
           ))}
         </View>
         <View
@@ -108,6 +100,7 @@ export default function Setup1() {
             mode="contained"
             buttonColor="#FF00FF"
             onPress={() => handleAction("wifi")}
+            style={{ marginVertical: 4 }}
           >
             Buscar
           </Button>
@@ -119,6 +112,7 @@ export default function Setup1() {
           mode="contained"
           buttonColor="#FF00FF"
           onPress={() => navigation.goBack()}
+          style={{ marginHorizontal: 4 }}
         >
           Voltar
         </Button>
@@ -126,6 +120,7 @@ export default function Setup1() {
           mode="contained"
           buttonColor="#FF00FF"
           onPress={() => handleRoute("Setup2")}
+          style={{ marginHorizontal: 4 }}
         >
           Avançar
         </Button>

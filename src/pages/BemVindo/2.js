@@ -43,6 +43,7 @@ export default function Setup2() {
           mode="contained"
           buttonColor="#FF00FF"
           onPress={() => navigation.goBack()}
+          style={{marginHorizontal: 4}}
         >
           Voltar
         </Button>
@@ -50,6 +51,7 @@ export default function Setup2() {
           mode="contained"
           buttonColor="#FF00FF"
           onPress={() => handleAction("ajudaporfavorsocorro")}
+          style={{marginHorizontal: 4}}
         >
           Ajuda
         </Button>
@@ -57,6 +59,7 @@ export default function Setup2() {
           mode="contained"
           buttonColor="#FF00FF"
           onPress={() => handleRoute("Setup3")}
+          style={{marginHorizontal: 4}}
         >
           Avançar
         </Button>
