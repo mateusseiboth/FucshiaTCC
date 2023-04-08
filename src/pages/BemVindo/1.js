@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import * as React from "react";
 import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SetupTemplate from "../../components/SetupTemplate";
@@ -6,11 +6,14 @@ import SetupStyle from "../../components/SetupTemplate/style";
 import { scanNetwork } from "../../utils/Search/index";
 import { PERMISSIONS, request } from "react-native-permissions";
 import { ProgressBar, Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import FucshiaModal from "../../components/Modal";
 
 export default function Setup1() {
-  const [devices, setDevices] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [devices, setDevices] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const navigation = useNavigation();
+  const [helpModalVisible, setHelpModalVisible] = React.useState(false);
 
   // função para solicitar permissão de localização
   const permitir = async () => {
@@ -43,10 +46,12 @@ export default function Setup1() {
     if (route === "wifi") {
       permitir();
       setLoading(true);
+    } else if (route === "ajudaporfavorsocorro") {
+      setHelpModalVisible(true);
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     setLoading(false);
   }, [devices]);
 
@@ -70,9 +75,18 @@ export default function Setup1() {
               key={index}
               mode="contained"
               buttonColor="#FF00FF"
-              style={{alignContent: "center", alignItems: "center", alignSelf: "center", marginVertical: 4, width: 100, height: 40}}
+              style={{
+                alignContent: "center",
+                alignItems: "center",
+                alignSelf: "center",
+                marginVertical: 4,
+                width: 100,
+                height: 40,
+              }}
               onPress={() => console.log("aaainnnnn")}
-            >{device.IP}</Button>
+            >
+              {device.IP}
+            </Button>
           ))}
         </View>
         <View
@@ -109,22 +123,43 @@ export default function Setup1() {
 
       <View style={SetupStyle.containerButton}>
         <Button
-          mode="contained"
-          buttonColor="#FF00FF"
+          icon={() => (
+            <Icon
+              name="arrow-left-bold-box-outline"
+              size={60}
+              color="#FF00FF"
+            />
+          )}
           onPress={() => navigation.goBack()}
           style={{ marginHorizontal: 4 }}
-        >
-          Voltar
-        </Button>
+        />
+
         <Button
-          mode="contained"
-          buttonColor="#FF00FF"
+          icon={() => <Icon name="help-box" size={60} color="#FF00FF" />}
+          onPress={() => handleAction("ajudaporfavorsocorro")}
+          style={{ marginHorizontal: 4 }}
+        />
+        <Button
+          icon={() => (
+            <Icon
+              name="arrow-right-bold-box-outline"
+              size={60}
+              color="#FF00FF"
+            />
+          )}
           onPress={() => handleRoute("Setup2")}
           style={{ marginHorizontal: 4 }}
-        >
-          Avançar
-        </Button>
+        />
       </View>
+      <FucshiaModal
+        visible={helpModalVisible}
+        onClose={() => setHelpModalVisible(false)}
+        title="Ajuda"
+        content={`Para receber ajuda por favor entre em contato no número abaixo:
+         ${"\n"}(11) 99999-9999 
+         ${"\n"}ou pelo email:
+         ${"\n"}fucshia@golpedocartaocromado.com.br`}
+      />
     </View>
   );
 }

@@ -3,13 +3,12 @@ import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SetupTemplate from "../../components/SetupTemplate/index.js";
 import SetupStyle from "../../components/SetupTemplate/style";
-import { IconButton, Button, MD3Colors } from "react-native-paper";
-import FucshiaModal from '../../components/Modal';
-
+import { IconButton, Button } from "react-native-paper";
+import FucshiaModal from "../../components/Modal";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 export default function Setup3() {
   const navigation = useNavigation();
   const [helpModalVisible, setHelpModalVisible] = React.useState(false);
-
   function handleRoute(route) {
     navigation.navigate(route, {});
   }
@@ -25,6 +24,11 @@ export default function Setup3() {
       <SetupTemplate titulo="Aguarde a configuração" currentPage={3} />
 
       <View style={SetupStyle.containerComum}>
+        <Button
+          icon={() => (
+            <Icon name="check-circle-outline" size={60} color="#FF00FF" />
+          )}
+        ></Button>
         <Text style={[SetupStyle.fucshia, SetupStyle.centerFuc]}>
           Teste 2/2 Concluído.
         </Text>
@@ -35,29 +39,34 @@ export default function Setup3() {
 
       <View style={SetupStyle.containerButton}>
         <Button
-          mode="contained"
-          buttonColor="#FF00FF"
+          icon={() => (
+            <Icon
+              name="arrow-left-bold-box-outline"
+              size={60}
+              color="#FF00FF"
+            />
+          )}
           onPress={() => navigation.goBack()}
-          style={{marginHorizontal: 4}}
-        >
-          Voltar
-        </Button>
+          style={{ marginHorizontal: 4 }}
+        />
+
         <Button
-          mode="contained"
-          buttonColor="#FF00FF"
+          icon={() => <Icon name="help-box" size={60} color="#FF00FF" />}
           onPress={() => handleAction("ajudaporfavorsocorro")}
-          style={{marginHorizontal: 4}}
-        >
-          Ajuda
-        </Button>
+          style={{ marginHorizontal: 4 }}
+        />
+
         <Button
-          mode="contained"
-          buttonColor="#FF00FF"
+          icon={() => (
+            <Icon
+              name="arrow-right-bold-box-outline"
+              size={60}
+              color="#FF00FF"
+            />
+          )}
           onPress={() => handleRoute("FucshiaHome")}
-          style={{marginHorizontal: 4}}
-        >
-          Avançar
-        </Button>
+          style={{ marginHorizontal: 4 }}
+        />
       </View>
 
       <FucshiaModal
@@ -68,7 +77,6 @@ export default function Setup3() {
          ${"\n"}(11) 99999-9999 
          ${"\n"}ou pelo email:
          ${"\n"}fucshia@golpedocartaocromado.com.br`}
-
       />
     </View>
   );
