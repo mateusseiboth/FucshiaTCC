@@ -22,7 +22,7 @@ export default function BemVindo() {
           resizeMode="contain"
           source={require('../../../assets/logoTipoSVGMasPNG.png')}
         />
-        {/* <Text style={[homeStyle.fucshia, homeStyle.title]} >Fuchsia</Text> */}
+        <Text style={[homeStyle.fucshia, homeStyle.title]} >Fuchsia</Text>
       </View>
 
       <View style={[homeStyle.bolinha, homeStyle.bolinhaBaixo]} />

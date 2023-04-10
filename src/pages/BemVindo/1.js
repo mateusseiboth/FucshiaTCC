@@ -1,24 +1,27 @@
-import {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
-import FuchsiaButton from '../../components/FucshiaButton';
-import {useNavigation} from '@react-navigation/native';
-import SetupTemplate from '../../components/SetupTemplate';
-import SetupStyle from '../../components/SetupTemplate/style';
-import {scanNetwork} from '../../utils/Search/index';
-import {PERMISSIONS, request} from 'react-native-permissions';
-import {ProgressBar} from 'react-native-paper';
+import * as React from "react";
+import { Text, View, Alert  } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import SetupTemplate from "../../components/SetupTemplate";
+import SetupStyle from "../../components/SetupTemplate/style";
+import { scanNetwork } from "../../utils/Search/index";
+import { PERMISSIONS, request } from "react-native-permissions";
+import { ProgressBar, Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import FucshiaModal from "../../components/Modal";
+import { salvarDispositivo } from "../../utils/banco";
 
 export default function Setup1() {
-  const [devices, setDevices] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [devices, setDevices] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const navigation = useNavigation();
+  const [helpModalVisible, setHelpModalVisible] = React.useState(false);
 
   // função para solicitar permissão de localização
-    const permitir = async () => {
+  const permitir = async () => {
     try {
       const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-      if (result === 'granted') {
-        console.log('Permissão concedida!');
+      if (result === "granted") {
+        console.log("Permissão concedida!");
         fetchDevices();
       }
     } catch (error) {
@@ -30,6 +33,7 @@ export default function Setup1() {
     try {
       const devicesFound = await scanNetwork();
       setDevices(devicesFound);
+      console.log(devicesFound);
     } catch (error) {
       console.log(error);
     }
@@ -39,14 +43,36 @@ export default function Setup1() {
     navigation.navigate(route, {});
   }
 
-  function handleAction(route) {
-    if (route === 'wifi') {
+  function handleAction(route, device?) {
+    if (route === "wifi") {
       permitir();
       setLoading(true);
+    } else if (route === "ajudaporfavorsocorro") {
+      setHelpModalVisible(true);
+    } else if(route === "salvar"){
+      Alert.alert(
+        "Salvar dispositivo",
+        `Deseja salvar o dispositivo ${device.IP} no banco de dados?`,
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Salvar",
+            onPress: () => {
+              // adiciona o dispositivo ao banco de dados
+              salvarDispositivo(device.IP);
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     }
   }
 
-  useEffect(() => {
+
+  React.useEffect(() => {
     setLoading(false);
   }, [devices]);
 
@@ -55,45 +81,106 @@ export default function Setup1() {
       <SetupTemplate titulo="Selecione as placas" currentPage={1} />
 
       <View style={SetupStyle.containerItens}>
-        <Text style={{fontWeight: 'bold', alignSelf: 'center', color: '#FFFFFF'}}>
+        <Text
+          style={{ fontWeight: "bold", alignSelf: "center", color: "#FFFFFF" }}
+        >
           Precisamos de acesso a sua localização
           <Text style={[SetupStyle.fucshia]}>
-            {' '} para buscar dispositivos próximos.
+            {" "}
+            para buscar dispositivos próximos.
           </Text>
         </Text>
         <View>
-          <Text style={{fontWeight: 'bold', alignSelf: 'center', alignItems: 'center', color: '#FFFFFF',}}>
-            Toque abaixo para permitir
-          </Text>
           {devices.map((device, index) => (
-            <FuchsiaButton
+            <Button
               key={index}
-              text={device.IP}
-              onPress={() => console.log('aaainnnnn')}
-            />
+              mode="contained"
+              buttonColor="#FF00FF"
+              style={{
+                alignContent: "center",
+                alignItems: "center",
+                alignSelf: "center",
+                marginVertical: 4,
+                width: 100,
+                height: 40,
+              }}
+              onPress={() => handleAction("salvar",device)}
+            >
+              {device.IP}
+            </Button>
           ))}
         </View>
-        <View style={{position: 'absolute', bottom: 0, alignSelf: 'center', alignContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            alignSelf: "center",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
           {loading ? (
-            <View style={{alignSelf: 'center'}}>
+            <View style={{ alignSelf: "center" }}>
               <ProgressBar
                 indeterminate={true}
                 width={300}
-                color={'#FF00FF'}
-                style={{marginTop: 20}}
+                color={"#FF00FF"}
+                style={{ marginTop: 20 }}
               />
             </View>
           ) : (
             <View />
           )}
-          <FuchsiaButton text="   Buscar   " onPress={() => handleAction('wifi')} />
+          <Button
+            mode="contained"
+            buttonColor="#FF00FF"
+            onPress={() => handleAction("wifi")}
+            style={{ marginVertical: 4 }}
+          >
+            Buscar
+          </Button>
         </View>
       </View>
 
       <View style={SetupStyle.containerButton}>
-        <FuchsiaButton text="Voltar" onPress={() => navigation.goBack()} />
-        <FuchsiaButton text="Avançar" onPress={() => handleRoute('Setup2')} />
+        <Button
+          icon={() => (
+            <Icon
+              name="arrow-left-bold-box-outline"
+              size={60}
+              color="#FF00FF"
+            />
+          )}
+          onPress={() => navigation.goBack()}
+          style={{ marginHorizontal: 4 }}
+        />
+
+        <Button
+          icon={() => <Icon name="help-box" size={60} color="#FF00FF" />}
+          onPress={() => handleAction("ajudaporfavorsocorro")}
+          style={{ marginHorizontal: 4 }}
+        />
+        <Button
+          icon={() => (
+            <Icon
+              name="arrow-right-bold-box-outline"
+              size={60}
+              color="#FF00FF"
+            />
+          )}
+          onPress={() => handleRoute("Setup2")}
+          style={{ marginHorizontal: 4 }}
+        />
       </View>
+      <FucshiaModal
+        visible={helpModalVisible}
+        onClose={() => setHelpModalVisible(false)}
+        title="Ajuda"
+        content={`Para receber ajuda por favor entre em contato no número abaixo:
+         ${"\n"}(11) 99999-9999 
+         ${"\n"}ou pelo email:
+         ${"\n"}fucshia@golpedocartaocromado.com.br`}
+      />
     </View>
   );
 }
