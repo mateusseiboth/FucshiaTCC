@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View } from "react-native";
+import { Text, View, Alert  } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SetupTemplate from "../../components/SetupTemplate";
 import SetupStyle from "../../components/SetupTemplate/style";
@@ -8,6 +8,7 @@ import { PERMISSIONS, request } from "react-native-permissions";
 import { ProgressBar, Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FucshiaModal from "../../components/Modal";
+import { salvarDispositivo } from "../../utils/banco";
 
 export default function Setup1() {
   const [devices, setDevices] = React.useState([]);
@@ -42,14 +43,34 @@ export default function Setup1() {
     navigation.navigate(route, {});
   }
 
-  function handleAction(route) {
+  function handleAction(route, device?) {
     if (route === "wifi") {
       permitir();
       setLoading(true);
     } else if (route === "ajudaporfavorsocorro") {
       setHelpModalVisible(true);
+    } else if(route === "salvar"){
+      Alert.alert(
+        "Salvar dispositivo",
+        `Deseja salvar o dispositivo ${device.IP} no banco de dados?`,
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Salvar",
+            onPress: () => {
+              // adiciona o dispositivo ao banco de dados
+              salvarDispositivo(device.IP);
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     }
   }
+
 
   React.useEffect(() => {
     setLoading(false);
@@ -83,7 +104,7 @@ export default function Setup1() {
                 width: 100,
                 height: 40,
               }}
-              onPress={() => console.log("aaainnnnn")}
+              onPress={() => handleAction("salvar",device)}
             >
               {device.IP}
             </Button>
