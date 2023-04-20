@@ -17,7 +17,7 @@ export default function Luzes() {
                         <Text style={[styles.title]}>Quarto #1
                         </Text>
                         <Icon style={styles.icons}
-                            name="lamp-outline"
+                            name="lightbulb-on-outline"
                             size={60}
                             color="#408B93"
                         />
@@ -26,7 +26,7 @@ export default function Luzes() {
                         <Text style={[styles.title]}>Quarto #2
                         </Text>
                         <Icon style={styles.icons}
-                            name="lamp-outline"
+                            name="lightbulb-on-outline"
                             size={60}
                             color="#408B93"
                         />
@@ -37,7 +37,7 @@ export default function Luzes() {
                         <Text style={[styles.title]}>Quarto #3
                         </Text>
                         <Icon style={styles.icons}
-                            name="lamp-outline"
+                            name="lightbulb-on-outline"
                             size={60}
                             color="#408B93"
                         />
@@ -46,7 +46,7 @@ export default function Luzes() {
                         <Text style={[styles.title]}>Quarto #4
                         </Text>
                         <Icon style={styles.icons}
-                            name="lamp-outline"
+                            name="lightbulb-off-outline"
                             size={60}
                             color="#408B93"
                         />

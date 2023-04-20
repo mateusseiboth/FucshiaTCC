@@ -34,7 +34,7 @@ export default function FucshiaHome() {
           
           <Text style={[styles.title]}>Luzes 
           <Icon style={styles.icons}
-              name="lamp-outline"
+              name="lightbulb-on-outline"
               size={60}
               color="#408B93"
             />
