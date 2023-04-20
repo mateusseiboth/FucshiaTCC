@@ -7,6 +7,7 @@ import FucshiaHome from '../pages/FucshiaHome';
 import Charmander from '../pages/Charmander';
 import Setup2 from '../pages/BemVindo/2.js';
 import Setup3 from '../pages/BemVindo/3.js';
+import Luzes from '../pages/IoT/luzes.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,12 @@ export default function Routes() {
       <Stack.Screen
         name="Setup3"
         component={Setup3}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="lamp"
+        component={Luzes}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
