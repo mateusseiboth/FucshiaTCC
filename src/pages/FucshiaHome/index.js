@@ -13,11 +13,6 @@ export default function FucshiaHome() {
   function abrirXTudo() {
     setIsMenuOpen(!isMenuOpen);
   }
-
-  
-
-
-
   return (
     <View>
       <View style={styles.topBar} elevation={5}>
