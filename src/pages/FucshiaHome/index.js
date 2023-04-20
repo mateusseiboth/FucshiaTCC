@@ -1,8 +1,23 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Xtudo from '../../components/menuXtudo/menuXtudo'
+import Flutuante from '../../components/menuFlutuante/menuFlutuante';
+import { useState } from 'react';
+
 
 export default function FucshiaHome() {
+  
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function abrirXTudo() {
+    setIsMenuOpen(!isMenuOpen);
+  }
+
+  
+
+
+
   return (
     <View>
       <View style={styles.topBar} elevation={5}>
@@ -14,11 +29,12 @@ export default function FucshiaHome() {
           />
         </View>
         <View style={styles.topBarRight}>
-          <Text style={{ color: 'white' }}>Aqui vai o menu Xtudo</Text>
+          <Xtudo isOpen={isMenuOpen} style={{ zIndex: 999 }} />
         </View>
       </View>
 
       <View style={styles.container}>
+     
         <View style={[styles.itens, { backgroundColor: '#63D5E2' }]}>
           
           <Text style={[styles.title]}>Luzes 
@@ -54,7 +70,7 @@ export default function FucshiaHome() {
         </View>
         
         <View style={[styles.itens, { backgroundColor: '#9AD262' }]}>
-        <Text style={[styles.title]}>Aparelhos
+          <Text style={[styles.title]}>Aparelhos
           <Icon style={styles.icons}
               name="devices"
               size={60}
@@ -62,21 +78,26 @@ export default function FucshiaHome() {
             />
             </Text>
             <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
+           
         </View>
-
+        <View style={styles.itens}>
+        <Flutuante />
+        </View>
+        
       </View>
-
+     
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   itens: {
-    marginTop: 30,
+    marginTop: 20,
     columnGap: 15,
     width: "60%",
-    height: "15%",
-    justifyContent: 'center'
+    height: "13%",
+    justifyContent: 'center',
+    zIndex: 2,
   },
   icons: {
     alignSelf: 'center',
@@ -100,6 +121,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     alignItems: 'center',
+    zIndex: 3,
 
   },
   topBar: {
@@ -109,13 +131,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
+    zIndex: 4,
   },
   topBarLeft: {
     flex: 1,
     alignItems: 'center',
   },
   topBarRight: {
-    width: 70,
+   
     alignItems: 'flex-end',
   },
   tinyLogo: {
