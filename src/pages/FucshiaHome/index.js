@@ -2,14 +2,19 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Xtudo from '../../components/menuXtudo/menuXtudo'
+import Flutuante from '../../components/menuFlutuante/menuFlutuante';
 import { useState } from 'react';
-export default function FucshiaHome() {
 
+
+export default function FucshiaHome() {
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function abrirXTudo() {
     setIsMenuOpen(!isMenuOpen);
   }
+
+  
 
 
 
@@ -65,7 +70,7 @@ export default function FucshiaHome() {
         </View>
         
         <View style={[styles.itens, { backgroundColor: '#9AD262' }]}>
-        <Text style={[styles.title]}>Aparelhos
+          <Text style={[styles.title]}>Aparelhos
           <Icon style={styles.icons}
               name="devices"
               size={60}
@@ -73,20 +78,24 @@ export default function FucshiaHome() {
             />
             </Text>
             <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
+           
         </View>
-
+        <View style={styles.itens}>
+        <Flutuante />
+        </View>
+        
       </View>
-
+     
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   itens: {
-    marginTop: 30,
+    marginTop: 20,
     columnGap: 15,
     width: "60%",
-    height: "15%",
+    height: "13%",
     justifyContent: 'center',
     zIndex: 2,
   },
