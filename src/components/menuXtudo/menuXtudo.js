@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, ToastAndroid } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -27,45 +27,45 @@ export default function HamburgerMenu() {
 
       {menuOpen && (
         <View style={styles.menu}>
-          <TouchableOpacity style={[styles.menuItem]} onPress={() => handleRoute("luzes")}>
+          <TouchableOpacity style={[styles.menuItem]} onPress={() => {ToastAndroid.show("Não implementado", ToastAndroid.SHORT)}}>
               <View style={[styles.itens, { backgroundColor: '#63D5E2' }]}>
-                <Text style={[styles.title]}>Luzes
+                <Text style={[styles.title]}>Placas
                   <Icon style={styles.icons}
-                    name="lightbulb-on-outline"
-                    size={60}
+                    name="plus-circle-outline"
+                    size={30}
                     color="#408B93"
                   />
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.menuItem, {backgroundColor: '#EB865E'}]} onPress={() => handleRoute("luzes")}>
+            <TouchableOpacity style={[styles.menuItem, {backgroundColor: '#EB865E'}]} onPress={() => {ToastAndroid.show("Não implementado", ToastAndroid.SHORT)}}>
               <View style={[styles.itens]}>
-                <Text style={[styles.title]}>Portões
+                <Text style={[styles.title]}>Senhas
                 <Icon style={styles.icons}
-              name="door-closed"
-              size={60}
+              name="key-outline"
+              size={30}
               color="#99573D"
             />
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.menuItem, {backgroundColor: '#D073D0'}]} onPress={() => handleRoute("luzes")}>
+            <TouchableOpacity style={[styles.menuItem, {backgroundColor: '#D073D0'}]} onPress={() => {ToastAndroid.show("Não implementado", ToastAndroid.SHORT)}}>
               <View style={[styles.itens]}>
-                <Text style={[styles.title]}>Câmeras
+                <Text style={[styles.title]}>Ambientes
                 <Icon style={styles.icons}
-              name="video-outline"
-              size={60}
+              name="forest"
+              size={30}
               color="#874B87"
             />
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.menuItem, {backgroundColor: '#9AD262'}]} onPress={() => handleRoute("luzes")}>
+            <TouchableOpacity style={[styles.menuItem, {backgroundColor: '#9AD262'}]} onPress={() => {ToastAndroid.show("Não implementado", ToastAndroid.SHORT)}}>
               <View style={[styles.itens]}>
-                <Text style={[styles.title]}>Aparelhos
+                <Text style={[styles.title]}>Outro item
                 <Icon style={styles.icons}
-              name="devices"
-              size={60}
+              name="cog-outline"
+              size={30}
               color="#648940"
             />
                 </Text>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 
   },
   menu: {
-    right: 10,
+    right: 0,
     alignSelf: 'center',
     position: 'absolute',
     top: 70,
@@ -104,21 +104,23 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   menuItem: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
     marginTop: 5,
-    width: 550,
+    width: 200,
     height: 100,
     fontSize: 18,
   },
   itens: {
     width: "100%",
     height: "100%",
-    justifyContent: 'center',
-    
   },
   icons: {
     alignSelf: 'center',
   },
   title: {
+    marginTop: 30,
     fontSize: 32,
     alignSelf: 'center',
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
