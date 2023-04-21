@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function FucshiaBar(props) {
-    console.log(props);
+    const navigation = useNavigation();
+
     const styles1 = StyleSheet.create({
         topBar: {
             height: 70,
@@ -42,14 +44,18 @@ export default function FucshiaBar(props) {
     return (
         <View>
             <View style={[styles1.topBar]} elevation={5}>
-                <View style={styles1.topBarLeft} >
+                
+                <View style={styles1.topBarLeft}>
+                <TouchableOpacity 
+                onPress={() => {navigation.goBack()}}>
                     <Text> <Icon style={styles1.icons}
                             name="arrow-left-bold-circle-outline"
                             size={60}
                             color="#FFFFFF"
                         /></Text>
-
+                     </TouchableOpacity>
                 </View>
+               
                 <View style={styles1.topBarRight}>
                     <Text style={styles1.title}>{props.title}</Text>
                 </View>
