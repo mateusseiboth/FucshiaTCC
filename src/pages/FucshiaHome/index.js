@@ -1,22 +1,27 @@
-import * as React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import * as React from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Xtudo from '../../components/menuXtudo/menuXtudo'
-import Flutuante from '../../components/menuFlutuante/menuFlutuante';
-import { useState } from 'react';
-
+import Xtudo from "../../components/menuXtudo/menuXtudo";
+import Flutuante from "../../components/menuFlutuante/menuFlutuante";
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function FucshiaHome() {
-  
+  const navigation = useNavigation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function abrirXTudo() {
     setIsMenuOpen(!isMenuOpen);
   }
+
+  function handleRoute(route) {
+    navigation.navigate(route);
+  }
+
   return (
     <View>
       <View style={styles.topBar} elevation={5}>
-        <View style={styles.topBarLeft} >
+        <View style={styles.topBarLeft}>
           <Image
             style={styles.tinyLogo}
             resizeMode="contain"
@@ -29,58 +34,97 @@ export default function FucshiaHome() {
       </View>
 
       <View style={styles.container}>
-     
-        <View style={[styles.itens, { backgroundColor: '#63D5E2' }]}>
-          
-          <Text style={[styles.title]}>Luzes 
-          <Icon style={styles.icons}
-              name="lightbulb-on-outline"
-              size={60}
-              color="#408B93"
-            />
+        <TouchableOpacity
+          style={[styles.itens, { backgroundColor: "#63D5E2" }]}
+          onPress={() => {
+            handleRoute("lamp");
+          }}
+        >
+          <View>
+            <Text style={[styles.title]}>
+              Luzes
+              <Icon
+                style={styles.icons}
+                name="lightbulb-on-outline"
+                size={60}
+                color="#408B93"
+              />
             </Text>
             <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
-        </View>
-        
-        <View style={[styles.itens, { backgroundColor: '#EB865E' }]}>
-        <Text style={[styles.title]}>Portões
-          <Icon style={styles.icons}
-              name="door-closed"
-              size={60}
-              color="#99573D"
-            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.itens, { backgroundColor: "#EB865E" }]}
+          onPress={() => {
+            handleRoute("lamp");
+          }}
+        >
+          <View>
+            <Text style={[styles.title]}>
+              Portões
+              <Icon
+                style={styles.icons}
+                name="door-closed"
+                size={60}
+                color="#99573D"
+              />
             </Text>
             <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
-        </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.itens, { backgroundColor: "#D073D0" }]}
+          onPress={() => {
+            handleRoute("lamp");
+          }}
+        >
+          <View>
+            <Text style={[styles.title]}>
+              Câmeras
+              <Icon
+                style={styles.icons}
+                name="video-outline"
+                size={60}
+                color="#874B87"
+              />
+            </Text>
+            <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
+          </View>
+        </TouchableOpacity>
 
-        <View style={[styles.itens, { backgroundColor: '#D073D0' }]}>
-        <Text style={[styles.title]}>Câmeras
-          <Icon style={styles.icons}
-              name="video-outline"
-              size={60}
-              color="#874B87"
-            />
+        <TouchableOpacity
+          style={[styles.itens, { backgroundColor: "#9AD262" }]}
+          onPress={() => {
+            handleRoute("lamp");
+          }}
+        >
+          <View>
+            <Text style={[styles.title]}>
+              Aparelhos
+              <Icon
+                style={styles.icons}
+                name="devices"
+                size={60}
+                color="#648940"
+              />
             </Text>
             <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
+          </View>
+        </TouchableOpacity>
+        <View
+          style={{
+           marginTop: 96,
+            width: "60%",
+            height: "13%",
+            justifyContent: "center",
+            zIndex: 4,
+            bottom: 0,
+          }}
+        >
+          <Flutuante />
         </View>
-        
-        <View style={[styles.itens, { backgroundColor: '#9AD262' }]}>
-          <Text style={[styles.title]}>Aparelhos
-          <Icon style={styles.icons}
-              name="devices"
-              size={60}
-              color="#648940"
-            />
-            </Text>
-            <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
-           
-        </View>
-        <View style={styles.itens}>
-        <Flutuante />
-        </View>
-        
       </View>
-     
+      
     </View>
   );
 }
@@ -91,23 +135,22 @@ const styles = StyleSheet.create({
     columnGap: 15,
     width: "60%",
     height: "13%",
-    justifyContent: 'center',
+    justifyContent: "center",
     zIndex: 2,
   },
   icons: {
-    alignSelf: 'center',
-
+    alignSelf: "center",
   },
   title: {
     fontSize: 32,
-    alignSelf: 'center',
+    alignSelf: "center",
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: "bold",
     color: "#FFFFFF",
   },
   subTitle: {
     fontSize: 12,
-    alignSelf: 'center',
+    alignSelf: "center",
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
   },
   container: {
@@ -115,26 +158,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#1B1B1B",
     width: "100%",
     height: "100%",
-    alignItems: 'center',
+    alignItems: "center",
     zIndex: 3,
-
   },
   topBar: {
-    backgroundColor: '#000000',
+    backgroundColor: "#000000",
     height: 70,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     zIndex: 4,
   },
   topBarLeft: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   topBarRight: {
-   
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
   tinyLogo: {
     width: 60,
