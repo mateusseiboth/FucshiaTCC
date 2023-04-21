@@ -31,8 +31,8 @@ export default function HamburgerMenu() {
               <View style={[styles.itens, { backgroundColor: '#63D5E2' }]}>
                 <Text style={[styles.title]}>Luzes
                   <Icon style={styles.icons}
-                    name="lamp-outline"
-                    size={30}
+                    name="lightbulb-on-outline"
+                    size={60}
                     color="#408B93"
                   />
                 </Text>

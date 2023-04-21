@@ -14,7 +14,7 @@ export default function Flutua() {
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={()=>{console.log('apertei'); onPress("lamp")}} >
         <Icon style={styles.icons}
-          name="lamp-outline"
+          name="lightbulb-on-outline"
           size={30}
           color="#408B93"
         />
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#000000',
     position: 'absolute',
-    bottom: 0,
+    bottom: 10,
     alignSelf: 'center',
     flexDirection: 'row',
     borderRadius: 25,
