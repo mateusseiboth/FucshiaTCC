@@ -9,6 +9,7 @@ export async function scanNetwork() {
       /(\d{1,3}\.\d{1,3}\.\d{1,3}\.)\d{1,3}/,
       '$1',
     );
+    
     console.log(`Network Prefix: ${networkPrefix}`);
     const devices = [];
     const fetchPromises = [];
