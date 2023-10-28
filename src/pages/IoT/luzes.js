@@ -9,18 +9,106 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Flutuante from "../../components/menuFlutuante/menuFlutuante";
 import FucshiaBar from "../../components/topBar/topBar";
-
-const elementos = [
-  { title: "Quarto #1", icon: "lightbulb-on-outline" },
-  { title: "Quarto #2", icon: "lightbulb-on-outline" },
-  { title: "Quarto #3", icon: "lightbulb-on-outline" },
-  { title: "Quarto #4", icon: "lightbulb-off-outline" },
-  { title: "Quarto #5", icon: "lightbulb-off-outline" },
-  { title: "Quarto #6", icon: "lightbulb-off-outline" },
-];
+import axios from "axios";
+import { recuperarDispositivo } from "../../utils/banco";
+import { ProgressBar } from "react-native-paper";
 
 export default function Luzes() {
-  const renderElementos = () => {
+  const [elementos, setElementos] = React.useState([]);
+  const [device, setDevice] = React.useState(null);
+  const [testando, setTestando] = React.useState(false);
+
+  async function getDevices() {
+    const databaseDevice = await recuperarDispositivo();
+    return databaseDevice;
+  }
+
+  const getGPIO = async (databaseDevice) => {
+    // Defina testando como true antes de fazer a solicitação
+    setTestando(true);
+
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    try {
+      const device = await getDevices();
+      setDevice(device);
+      console.log("http://" + databaseDevice + "/cm?cmnd=State");
+      const gpio = axios
+        .get("http://" + device + "/cm?cmnd=State", headers)
+        .then((result) => {
+          console.log(result.data);
+          let combinedArray = [];
+          let chaves = result.data;
+          const names = axios
+            .get("http://" + device + "/cm?cmnd=FriendlyName", headers)
+            .then((result) => {
+              Object.keys(chaves).forEach((powerKey) => {
+                const number = powerKey.match(/\d+/);
+                if (number) {
+                  const friendlyNameKey = `FriendlyName${number}`;
+                  if (result.data[friendlyNameKey]) {
+                    const combinedObject = {
+                      FriendlyName: result.data[friendlyNameKey],
+                      Power: chaves[powerKey],
+                      accessGPIO: number,
+                    };
+                    combinedArray.push(combinedObject);
+                  }
+                }
+              });
+              const setArray = combinedArray.map((item) => {
+                console.log(item);
+                return {
+                  accessGPIO: item.accessGPIO,
+                  title: item.FriendlyName,
+                  icon:
+                    item.Power === "ON"
+                      ? "lightbulb-on-outline"
+                      : "lightbulb-off-outline",
+                };
+              });
+              setElementos(setArray);
+              console.log(setArray);
+            })
+            .catch((error) => {
+              ToastAndroid.show("Erro ao requisitar dados", ToastAndroid.SHORT);
+              console.log(error);
+            });
+
+          const powerKeys = Object.keys(result.data).filter((key) =>
+            key.startsWith("POWER")
+          );
+
+          // Criar um novo objeto apenas com as chaves filtradas
+          const powerData = {};
+          powerKeys.forEach((key) => {
+            powerData[key] = result.data[key];
+          });
+          console.log(powerData);
+          setTestando(false);
+        })
+        .catch((error) => {
+          ToastAndroid.show("Erro ao requisitar dados", ToastAndroid.SHORT);
+          console.log(error);
+        });
+    } catch (error) {
+      setTestando(false); // Defina como false no caso de erro
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    // Defina testando como true antes de chamar getGPIO
+    setTestando(true);
+    getGPIO();
+    // Não é necessário definir testando como false aqui
+  }, []);
+
+  const renderElementos = (elementos) => {
+    console.log(elementos);
     const elementosRenderizados = [];
 
     for (let i = 0; i < elementos.length; i += 2) {
@@ -29,7 +117,46 @@ export default function Luzes() {
 
       elementosRenderizados.push(
         <View style={styles.row} key={`row_${i}`}>
-          <TouchableOpacity onPress={() => { ToastAndroid.show(`Clicado na lâmpada ${item1.title}`, ToastAndroid.SHORT);}}>
+          <TouchableOpacity
+            onPress={() => {
+              setTestando(true);
+              ToastAndroid.show(
+                `Alternando ${item1.title}`,
+                ToastAndroid.SHORT
+              );
+              axios
+                .get(
+                  "http://" +
+                    device +
+                    "/cm?cmnd=Power" +
+                    item1.accessGPIO +
+                    "%20toggle"
+                )
+                .then((response) => {
+                  const newArray = elementos.map((item) => {
+                    if (item.accessGPIO === item1.accessGPIO) {
+                      return {
+                        ...item,
+                        icon:
+                          item.icon === "lightbulb-on-outline"
+                            ? "lightbulb-off-outline"
+                            : "lightbulb-on-outline",
+                      };
+                    } else {
+                      return item;
+                    }
+                  });
+                  setElementos(newArray);
+                  setTestando(false);
+                })
+                .catch((error) => {
+                  ToastAndroid.show(
+                    `Erro ao alterar ${item1.title}`,
+                    ToastAndroid.SHORT
+                  );
+                });
+            }}
+          >
             <View style={styles.itens}>
               <Text style={[styles.title]}>{item1.title}</Text>
               <Icon
@@ -41,7 +168,47 @@ export default function Luzes() {
             </View>
           </TouchableOpacity>
           {item2 && (
-            <TouchableOpacity onPress={() => { ToastAndroid.show(`Clicado na lâmpada ${item2.title}`, ToastAndroid.SHORT);}}>
+            <TouchableOpacity
+              onPress={() => {
+                setTestando(true);
+                ToastAndroid.show(
+                  `Alternando ${item2.title}`,
+                  ToastAndroid.SHORT
+                );
+                axios
+                  .get(
+                    "http://" +
+                      device +
+                      "/cm?cmnd=Power" +
+                      item2.accessGPIO +
+                      "%20toggle"
+                  )
+                  .then((response) => {
+                    console.log(response.data);
+                    const newArray = elementos.map((item) => {
+                      if (item.accessGPIO === item2.accessGPIO) {
+                        return {
+                          ...item,
+                          icon:
+                            item.icon === "lightbulb-on-outline"
+                              ? "lightbulb-off-outline"
+                              : "lightbulb-on-outline",
+                        };
+                      } else {
+                        return item;
+                      }
+                    });
+                    setElementos(newArray);
+                    setTestando(false);
+                  })
+                  .catch((error) => {
+                    ToastAndroid.show(
+                      `Erro ao alterar ${item2.title}`,
+                      ToastAndroid.SHORT
+                    );
+                  });
+              }}
+            >
               <View style={styles.itens}>
                 <Text style={[styles.title]}>{item2.title}</Text>
                 <Icon
@@ -67,20 +234,37 @@ export default function Luzes() {
       </View>
 
       <View style={styles.container}>
-        {renderElementos()}
-
+        {renderElementos(elementos)}
         <View style={styles.row}>
-          <TouchableOpacity onPress={() => { ToastAndroid.show("Adicionar lâmapada não implementado", ToastAndroid.SHORT);}}>
-            <View style={styles.itens}>
-              <Text></Text>
-              <Icon
-                style={styles.icons}
-                name="plus-circle-outline"
-                size={60}
-                color="#BCBCBC"
+          {testando ? (
+            <View style={{ alignSelf: "center" }}>
+              <ProgressBar
+                indeterminate={true}
+                width={300}
+                color={"#FF00FF"}
+                style={{ marginTop: 20 }}
               />
             </View>
-          </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                ToastAndroid.show(
+                  "Adicionar lâmapada não implementado, faça pela interface web",
+                  ToastAndroid.SHORT
+                );
+              }}
+            >
+              <View style={styles.itens}>
+                <Text></Text>
+                <Icon
+                  style={styles.icons}
+                  name="plus-circle-outline"
+                  size={60}
+                  color="#BCBCBC"
+                />
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
 
         <Flutuante />
