@@ -65,6 +65,7 @@ const setupStyle = StyleSheet.create({
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: "bold",
     color: "#FFFFFF",
+    textAlign: "center",
   },
   centerFuc: {
     alignSelf: "center",

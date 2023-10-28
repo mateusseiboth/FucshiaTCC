@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, View, Alert  } from "react-native";
+import { Text, View, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SetupTemplate from "../../components/SetupTemplate";
 import SetupStyle from "../../components/SetupTemplate/style";
@@ -20,6 +20,7 @@ export default function Setup1() {
   const permitir = async () => {
     try {
       const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+      const result2 = await request(PERMISSIONS.ANDROID.ACCESS_NETWORK_STATE);
       if (result === "granted") {
         console.log("Permissão concedida!");
         fetchDevices();
@@ -43,13 +44,13 @@ export default function Setup1() {
     navigation.navigate(route, {});
   }
 
-  function handleAction(route, device?) {
+  function handleAction(route, device = null) {
     if (route === "wifi") {
       permitir();
       setLoading(true);
     } else if (route === "ajudaporfavorsocorro") {
       setHelpModalVisible(true);
-    } else if(route === "salvar"){
+    } else if (route === "salvar") {
       Alert.alert(
         "Salvar dispositivo",
         `Deseja salvar o dispositivo ${device.IP} no banco de dados?`,
@@ -70,7 +71,6 @@ export default function Setup1() {
       );
     }
   }
-
 
   React.useEffect(() => {
     setLoading(false);
@@ -104,7 +104,7 @@ export default function Setup1() {
                 width: 100,
                 height: 40,
               }}
-              onPress={() => handleAction("salvar",device)}
+              onPress={() => handleAction("salvar", device)}
             >
               {device.IP}
             </Button>
