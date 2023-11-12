@@ -1,40 +1,35 @@
 import * as React from "react";
 import { Image, Text, View, StyleSheet } from "react-native";
-import FuchsiaButton from "../../components/FucshiaButton";
 import { useNavigation } from "@react-navigation/native";
-import { recuperarDispositivo } from "../../utils/banco";
+import { criarTabela, recuperarDispositivo } from "../../utils/banco";
 
 export default function BemVindo() {
   const navigation = useNavigation();
-  const [loading, setLoading] = React.useState(false);
-  const [tryAgain, setTryAgain] = React.useState(false);
 
   async function getDevices() {
-    setLoading(true);
-    const databaseDevice = await recuperarDispositivo();
-    console.log(databaseDevice);
-
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 2000);
-    });
-    await getGPIO(databaseDevice);
-    setLoading(false);
+    try {
+      criarTabela();
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 2000);
+      });
+      console.log("getDevices");
+      const databaseDevice = await recuperarDispositivo();
+      console.log(databaseDevice);
+      if (databaseDevice.length > 0) {
+        console.log("tem dispositivo");
+        navigation.navigate("FucshiaHome");
+      } else {
+        console.log("não tem dispositivo");
+        navigation.navigate("Bem Vindo");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  React.useEffect(() => {
-    getDevices();
-  }, [tryAgain]);
-
-  function handleRoute(route) {
-    navigation.navigate(route, {});
-  }
-
-  function handleCommand(route) {
-    console.log(route);
-  }
-
+  getDevices();
   return (
     <View style={homeStyle.container}>
       <View style={homeStyle.containerLogo}>
@@ -51,28 +46,8 @@ export default function BemVindo() {
         <Text
           style={{ fontWeight: "bold", alignSelf: "center", color: "#FFFFFF" }}
         >
-          Bem vindo ao
-          <Text style={[homeStyle.fucshia]}> Fucshia Home Assistant</Text>
+          Trazendo inovação para sua casa
         </Text>
-        <View>
-          <Text
-            style={{
-              fontWeight: "bold",
-              alignSelf: "center",
-              color: "#FFFFFF",
-            }}
-          >
-            Deixe me guiá-lo em sua primeira configuração.
-          </Text>
-        </View>
-      </View>
-
-      <View style={homeStyle.containerButton}>
-        <FuchsiaButton text="Avançar" onPress={() => handleRoute("Setup1")} />
-        <FuchsiaButton
-          text="Desisto, não quero minha casa automática"
-          onPress={() => handleCommand("Mandei parar")}
-        />
       </View>
     </View>
   );
