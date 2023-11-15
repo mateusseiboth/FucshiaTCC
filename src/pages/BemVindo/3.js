@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { recuperarDispositivo } from "../../utils/banco/index.js";
 import SmallButton from "../../components/smallButton.js";
+import { Color } from "../../../GlobalStyles.js";
 
 export default function Setup3() {
   const navigation = useNavigation();
@@ -49,18 +50,18 @@ export default function Setup3() {
             setObjectTeste(item.nome);
             console.log(
               "http://" +
-              device +
-              "/cm?cmnd=Power" +
-              item.positionFriendly +
-              "%20toggle"
-            );
-            axios
-              .get(
-                "http://" +
                 device +
                 "/cm?cmnd=Power" +
                 item.positionFriendly +
                 "%20toggle"
+            );
+            axios
+              .get(
+                "http://" +
+                  device +
+                  "/cm?cmnd=Power" +
+                  item.positionFriendly +
+                  "%20toggle"
               )
               .then((response) => {
                 console.log(response.data);
@@ -74,10 +75,10 @@ export default function Setup3() {
             axios
               .get(
                 "http://" +
-                device +
-                "/cm?cmnd=Power" +
-                item.positionFriendly +
-                "%20toggle"
+                  device +
+                  "/cm?cmnd=Power" +
+                  item.positionFriendly +
+                  "%20toggle"
               )
               .then((response) => {
                 console.log(response.data);
@@ -96,24 +97,32 @@ export default function Setup3() {
     <View style={SetupStyle.container}>
       <SetupTemplate title="Configurando" currentPage={3} />
 
-      <View style={SetupStyle.containerItens}>
-        {/* <View style={SetupStyle.centerFuc}>
-          <Button
-            icon={() => (
-              <Icon name="check-circle-outline" size={60} color="#FF00FF" />
-            )}
-          ></Button>
-        </View>
-        <Text style={[SetupStyle.fucshia, SetupStyle.centerFuc]}>
-          {testando
-            ? `Testando ${objectTeste}`
-            : "Testes concluidos com sucesso"}
-        </Text> */}
-        <Text style={[SetupStyle.textInside]}>
+      <View style={[SetupStyle.containerItens, SetupStyle.centerFuc]}>
+        {!testando && (
+          <View style={{ textAlign: "center" }}>
+            <Button
+              icon={() => (
+                <Icon
+                  name="check-circle-outline"
+                  size={90}
+                  color={Color.colorFuchsia}
+                />
+              )}
+            ></Button>
+            <Text style={{ color: Color.colorBlack, textAlign: "center" }}>
+              Tudo Certo com a configuração!
+            </Text>
+          </View>
+        )}
+
+        <Text style={[SetupStyle.centerFuc, { color: Color.colorFuchsia }]}>
+          {testando ? `Testando ${objectTeste}` : ""}
+        </Text>
+        <Text style={[{ color: Color.colorBlack, textAlign: "center" }]}>
           {" "}
           {testando
             ? "Processando testes, suas luzes podem piscar durante esse processo"
-            : "Tudo Certo!"}
+            : ""}
         </Text>
         {testando ? (
           <View style={{ alignSelf: "center" }}>
@@ -149,7 +158,6 @@ export default function Setup3() {
           type="primary"
           disabled={false}
         />
-
       </View>
 
       <FucshiaModal

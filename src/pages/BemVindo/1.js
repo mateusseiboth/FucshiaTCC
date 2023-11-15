@@ -6,12 +6,13 @@ import SetupStyle from "../../components/SetupTemplate/style";
 import { scanNetwork } from "../../utils/Search/index";
 import { PERMISSIONS, request } from "react-native-permissions";
 import { ProgressBar, Button } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FucshiaModal from "../../components/Modal";
 import { salvarDispositivo } from "../../utils/banco";
 import MainButton from "../../components/mainButton";
 import SmallButton from "../../components/smallButton";
 import setupStyle from "../../components/SetupTemplate/style";
+import ErroPesquisa from "../../components/ErroPesquisa";
+import { Color } from "../../../GlobalStyles";
 
 export default function Setup1() {
   const [devices, setDevices] = React.useState([]);
@@ -52,7 +53,7 @@ export default function Setup1() {
   }
 
   function handleAction(route, device = null) {
-    console.log('Alguma coisa qualquer')
+    console.log("Alguma coisa qualquer");
     if (route === "wifi") {
       permitir();
       setLoading(true);
@@ -90,13 +91,11 @@ export default function Setup1() {
 
       {loading ? (
         <View style={{ alignSelf: "center" }}>
-          <Text>
-            {testando}
-          </Text>
+          <Text style={{ color: Color.colorFuchsia }}>{testando}</Text>
           <ProgressBar
             indeterminate={true}
-            size={80} // Adjust size according to your design
-            color={'#FF00FF'}
+            size={80}
+            color={"#FF00FF"}
             style={{ marginTop: 20 }}
           />
         </View>
@@ -104,23 +103,32 @@ export default function Setup1() {
         <>
           {haveDevice ? (
             <View style={SetupStyle.containerItens}>
-              <Text
-                style={setupStyle.textInside}
-              >
+              <Text style={setupStyle.textInside}>
                 Precisamos de acesso a sua localização
                 <Text style={[SetupStyle.fucshia]}>
                   {" "}
                   para buscar dispositivos próximos.
                 </Text>
               </Text>
-              <View>
+              <View
+                style={{
+                  alignSelf: "center",
+                  alignContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: Color.colorFuchsia, marginTop: 20 }}>
+                  Dispositivos encontrados:
+                </Text>
                 {devices.map((device, index) => (
                   <>
-                    <MainButton
-                      key={index}
-                      onPress={() => handleAction("salvar", device)}
-                      text={device.IP}
-                    />
+                    <View style={{ marginBottom: 20 }}>
+                      <MainButton
+                        key={index}
+                        onPress={() => handleAction("salvar", device)}
+                        text={device.IP}
+                      />
+                    </View>
                     <View />
                   </>
                 ))}
@@ -146,34 +154,7 @@ export default function Setup1() {
             </View>
           ) : (
             <>
-              <View style={SetupStyle.containerItens}>
-                <Button
-                  icon={() => (
-                    <Icon name="alpha-x-circle-outline"
-                      size={60} color="#FF00FF" />
-                  )}
-                ></Button>
-                <Text
-                  style={{ fontWeight: "bold", alignSelf: "center", color: "#000" }}
-                >
-                  Não encontramos equipamentos próximos.
-                </Text>
-                <View
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    alignSelf: "center",
-                    alignContent: "center",
-                    alignItems: "center",
-                    paddingBottom: 50,
-                  }}
-                >
-                  <MainButton
-                    onPress={() => setHaveDevice(true)}
-                    text="Tentar novamente"
-                  />
-                </View>
-              </View>
+              <ErroPesquisa />
             </>
           )}
         </>

@@ -1,5 +1,5 @@
-import { NetworkInfo } from 'react-native-network-info';
-import axios from 'axios';
+import { NetworkInfo } from "react-native-network-info";
+import axios from "axios";
 
 export async function scanNetwork(setTestando) {
   try {
@@ -7,37 +7,42 @@ export async function scanNetwork(setTestando) {
     console.log(`Gateway IP: ${gatewayIP}`);
     const networkPrefix = gatewayIP.replace(
       /(\d{1,3}\.\d{1,3}\.\d{1,3}\.)\d{1,3}/,
-      '$1',
+      "$1"
     );
 
     console.log(`Network Prefix: ${networkPrefix}`);
     const devices = [];
     const fetchPromises = [];
     for (let i = 1; i < 255; i++) {
-      await new Promise(r => setTimeout(r, 100));
-      setTestando("Testando o IP " + networkPrefix + i)
-
+      await new Promise((r) => setTimeout(r, 100));
+      setTestando("Testando o IP " + networkPrefix + i);
+      if (i == 254) {
+        setTestando("Aguradando resposta dos equipamentos...");
+      }
+      console.log("Testando o IP " + networkPrefix + i);
       const host = networkPrefix + i;
+      console.log(`http://${host}/cm?cmnd=status`);
       const promise = axios
         .get(`http://${host}/cm?cmnd=status`)
-        .then(response => {
+        .then((response) => {
+          console.log(response);
           if (
             response.status === 200 &&
-            response.headers['content-type'].includes('application/json')
+            response.headers["content-type"].includes("application/json")
           ) {
             return response.data;
             console.log("Achei o " + host + "");
           } else {
-            throw new Error('A resposta da requisição não é do tipo JSON.');
+            throw new Error("A resposta da requisição não é do tipo JSON.");
           }
         })
-        .then(data => {
+        .then((data) => {
           const jsonString = {
             IP: host,
           };
           devices.push(jsonString);
         })
-        .catch(error => { });
+        .catch((error) => {});
       fetchPromises.push(promise);
     }
     await Promise.all(fetchPromises);
