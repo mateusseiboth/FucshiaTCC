@@ -7,12 +7,12 @@ const setupStyle = StyleSheet.create({
     backgroundColor: Color.colorWhite,
   },
   containerItens: {
+    flex: 1,
     width: "88%",
     height: "60%",
     alignSelf: "center",
-    top: -20,
     backgroundColor: Color.colorWhitesmoke_100,
-    borderRadius: 20
+    borderRadius: 20,
   },
   containerComum: {
     width: "88%",
@@ -33,17 +33,12 @@ const setupStyle = StyleSheet.create({
     marginRight: 0,
   },
   containerButton: {
-    flex: 0.5,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
+    marginHorizontal: 30,
+    marginBottom: 50,
+    marginTop: 20,
   },
   tinyLogo: {
     width: 80,
@@ -52,7 +47,7 @@ const setupStyle = StyleSheet.create({
     marginRight: 10,
   },
   fucshia: {
-    color: "#FF00FF",
+    color: Color.colorFuchsia,
     fontWeight: "bold",
   },
   title: {
@@ -118,6 +113,14 @@ const setupStyle = StyleSheet.create({
     borderRightWidth: 2,
     borderStyle: "solid",
     borderColor: "#F72585",
+  },
+  textInside: {
+    fontSize: 18,
+    alignSelf: "center",
+    color: Color.colorGray_100,
+    fontWeight: "bold",
+    marginTop: 30,
+    textAlign: "center",
   },
 });
 
