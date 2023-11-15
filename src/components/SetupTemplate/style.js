@@ -19,7 +19,7 @@ const setupStyle = StyleSheet.create({
     height: "60%",
     alignSelf: "center",
     top: 10,
-    backgroundColor: "#1B1B1B",
+    backgroundColor: Color.colorCadetblue,
   },
   containerSetup: {
     position: "absolute",
@@ -70,7 +70,7 @@ const setupStyle = StyleSheet.create({
     alignSelf: "center",
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: "bold",
-    backgroundColor: "#1B1B1B",
+    paddingTop: 20,
   },
   bolinha: {
     width: 30,

@@ -11,8 +11,6 @@ import FucshiaModal from "../../components/Modal";
 import { salvarDispositivo } from "../../utils/banco";
 import MainButton from "../../components/mainButton";
 import SmallButton from "../../components/smallButton";
-import StepIndicator from "../../components/stepIndicator";
-import { Color, FontFamily } from "../../../GlobalStyles.js";
 import setupStyle from "../../components/SetupTemplate/style";
 
 export default function Setup1() {
