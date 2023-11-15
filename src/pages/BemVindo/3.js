@@ -9,6 +9,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { recuperarDispositivo } from "../../utils/banco/index.js";
+import SmallButton from "../../components/smallButton.js";
 
 export default function Setup3() {
   const navigation = useNavigation();
@@ -48,18 +49,18 @@ export default function Setup3() {
             setObjectTeste(item.nome);
             console.log(
               "http://" +
-                device +
-                "/cm?cmnd=Power" +
-                item.positionFriendly +
-                "%20toggle"
+              device +
+              "/cm?cmnd=Power" +
+              item.positionFriendly +
+              "%20toggle"
             );
             axios
               .get(
                 "http://" +
-                  device +
-                  "/cm?cmnd=Power" +
-                  item.positionFriendly +
-                  "%20toggle"
+                device +
+                "/cm?cmnd=Power" +
+                item.positionFriendly +
+                "%20toggle"
               )
               .then((response) => {
                 console.log(response.data);
@@ -73,10 +74,10 @@ export default function Setup3() {
             axios
               .get(
                 "http://" +
-                  device +
-                  "/cm?cmnd=Power" +
-                  item.positionFriendly +
-                  "%20toggle"
+                device +
+                "/cm?cmnd=Power" +
+                item.positionFriendly +
+                "%20toggle"
               )
               .then((response) => {
                 console.log(response.data);
@@ -93,10 +94,10 @@ export default function Setup3() {
 
   return (
     <View style={SetupStyle.container}>
-      <SetupTemplate titulo="Aguarde a configuração" currentPage={3} />
+      <SetupTemplate title="Configurando" currentPage={3} />
 
-      <View style={SetupStyle.containerComum}>
-        <View style={SetupStyle.centerFuc}>
+      <View style={SetupStyle.containerItens}>
+        {/* <View style={SetupStyle.centerFuc}>
           <Button
             icon={() => (
               <Icon name="check-circle-outline" size={60} color="#FF00FF" />
@@ -107,8 +108,8 @@ export default function Setup3() {
           {testando
             ? `Testando ${objectTeste}`
             : "Testes concluidos com sucesso"}
-        </Text>
-        <Text style={[SetupStyle.subTitle]}>
+        </Text> */}
+        <Text style={[SetupStyle.textInside]}>
           {" "}
           {testando
             ? "Processando testes, suas luzes podem piscar durante esse processo"
@@ -129,35 +130,26 @@ export default function Setup3() {
       </View>
 
       <View style={SetupStyle.containerButton}>
-        <Button
-          icon={() => (
-            <Icon
-              name="arrow-left-bold-box-outline"
-              size={60}
-              color="#FF00FF"
-            />
-          )}
+        <SmallButton
+          text="VOLTAR"
           onPress={() => navigation.goBack()}
-          style={{ marginHorizontal: 4 }}
+          type="secondary"
+          disabled={false}
         />
 
-        <Button
+        {/* <Button
           icon={() => <Icon name="help-box" size={60} color="#FF00FF" />}
           onPress={() => handleAction("ajudaporfavorsocorro")}
           style={{ marginHorizontal: 4 }}
+        /> */}
+
+        <SmallButton
+          text="PRÓXIMO"
+          onPress={() => handleRoute("FucshiaHome")}
+          type="primary"
+          disabled={false}
         />
 
-        <Button
-          icon={() => (
-            <Icon
-              name="arrow-right-bold-box-outline"
-              size={60}
-              color="#FF00FF"
-            />
-          )}
-          onPress={() => handleRoute("FucshiaHome")}
-          style={{ marginHorizontal: 4 }}
-        />
       </View>
 
       <FucshiaModal

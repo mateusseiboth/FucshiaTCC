@@ -21,8 +21,8 @@ export default function Charmander() {
         <Image
           style={styles.tinyLogo}
           source={flagImage === true ?
-            require('../../../assets/icons8-charmander-96OFF.png') :
-            require('../../../assets/icons8-charmander-96ON.png')
+            require('../../../assets/images/icons8-charmander-96OFF.png') :
+            require('../../../assets/images/icons8-charmander-96ON.png')
           }
         />
       </TouchableOpacity>

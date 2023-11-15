@@ -7,7 +7,7 @@ import FucshiaHome from "../pages/FucshiaHome";
 import Charmander from "../pages/Charmander";
 import Setup2 from "../pages/BemVindo/2.js";
 import Setup3 from "../pages/BemVindo/3.js";
-import Luzes from "../pages/IoT/luzes.js";
+import Luzes from "../pages/Telas-Iot/luzes.js";
 import splash from "../pages/BemVindo/splash.js";
 
 const Stack = createNativeStackNavigator();

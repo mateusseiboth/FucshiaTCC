@@ -1,7 +1,7 @@
-import {NetworkInfo} from 'react-native-network-info';
+import { NetworkInfo } from 'react-native-network-info';
 import axios from 'axios';
 
-export async function scanNetwork() {
+export async function scanNetwork(setTestando) {
   try {
     const gatewayIP = await NetworkInfo.getGatewayIPAddress();
     console.log(`Gateway IP: ${gatewayIP}`);
@@ -9,11 +9,14 @@ export async function scanNetwork() {
       /(\d{1,3}\.\d{1,3}\.\d{1,3}\.)\d{1,3}/,
       '$1',
     );
-    
+
     console.log(`Network Prefix: ${networkPrefix}`);
     const devices = [];
     const fetchPromises = [];
     for (let i = 1; i < 255; i++) {
+      await new Promise(r => setTimeout(r, 100));
+      setTestando("Testando o IP " + networkPrefix + i)
+
       const host = networkPrefix + i;
       const promise = axios
         .get(`http://${host}/cm?cmnd=status`)
@@ -34,7 +37,7 @@ export async function scanNetwork() {
           };
           devices.push(jsonString);
         })
-        .catch(error => {});
+        .catch(error => { });
       fetchPromises.push(promise);
     }
     await Promise.all(fetchPromises);

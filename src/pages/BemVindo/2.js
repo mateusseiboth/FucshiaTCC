@@ -18,6 +18,8 @@ import { recuperarDispositivo } from "../../utils/banco/index.js";
 import axios from "axios";
 import { Modal } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import SmallButton from "../../components/smallButton.js";
+import setupStyle from "../../components/SetupTemplate/style";
 
 export default function Setup2() {
   const navigation = useNavigation();
@@ -64,14 +66,14 @@ export default function Setup2() {
                 item > 250
                   ? "Relay Invertido"
                   : item > 190 && item < 200
-                  ? "Switch Normal"
-                  : "Não definido",
+                    ? "Switch Normal"
+                    : "Não definido",
               pino:
                 index >= 6 && index <= 7
                   ? index + 3
                   : index >= 8
-                  ? index + 4
-                  : index,
+                    ? index + 4
+                    : index,
               nome: "",
               chaveItem: item,
             };
@@ -166,19 +168,19 @@ export default function Setup2() {
 
   return (
     <View style={SetupStyle.container}>
-      <SetupTemplate titulo="Associe as Placas" currentPage={2} />
+      <SetupTemplate title="Associe as Placas" currentPage={2} />
 
       <View style={SetupStyle.containerItens}>
         <Text
-          style={{ fontWeight: "bold", alignSelf: "center", color: "#FFFFFF" }}
+          style={setupStyle.textInside}
         >
           Clique no GPIO para nomear
-          <Text style={[SetupStyle.fucshia]}>
+          <Text style={[setupStyle.textInside]}>
             {" "}
             com o ambiente correspondente{" "}
           </Text>
         </Text>
-        <Text style={[SetupStyle.fucshia, { textAlign: "center" }]}>
+        <Text style={[SetupStyle.fucshia, {textAlign: "center", fontSize: 18, paddingTop: 30,}]}>
           Configurando {device}
         </Text>
 
@@ -198,30 +200,21 @@ export default function Setup2() {
       </View>
 
       <View style={SetupStyle.containerButton}>
-        <Button
-          icon={() => (
-            <Icon
-              name="arrow-left-bold-box-outline"
-              size={60}
-              color="#FF00FF"
-            />
-          )}
+        <SmallButton
+          text="VOLTAR"
           onPress={() => navigation.goBack()}
-          style={{ marginHorizontal: 4 }}
-        ></Button>
-        <Button
+          type="secondary"
+          disabled={false}
+        />
+
+        {/* <Button
           icon={() => <Icon name="help-box" size={60} color="#FF00FF" />}
           onPress={() => setHelpModalVisible(true)}
           style={{ marginHorizontal: 4 }}
-        ></Button>
-        <Button
-          icon={() => (
-            <Icon
-              name="arrow-right-bold-box-outline"
-              size={60}
-              color="#FF00FF"
-            />
-          )}
+        ></Button> */}
+
+        <SmallButton
+          text="PRÓXIMO"
           onPress={() => {
             const saveItem = async () => {
               try {
@@ -236,8 +229,10 @@ export default function Setup2() {
             saveItem();
             handleRoute("Setup3");
           }}
-          style={{ marginHorizontal: 4 }}
-        ></Button>
+          type="primary"
+          disabled={false}
+        />
+
       </View>
       <FucshiaModal
         visible={helpModalVisible}
@@ -305,11 +300,11 @@ export default function Setup2() {
                     axios
                       .get(
                         "http://" +
-                          device +
-                          "/cm?cmnd=FriendlyName" +
-                          item.positionFriendly +
-                          "%20" +
-                          textInput
+                        device +
+                        "/cm?cmnd=FriendlyName" +
+                        item.positionFriendly +
+                        "%20" +
+                        textInput
                       )
                       .then((result) => {
                         console.log(result.data);

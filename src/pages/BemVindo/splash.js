@@ -36,7 +36,7 @@ export default function BemVindo() {
         <Image
           style={homeStyle.tinyLogo}
           resizeMode="contain"
-          source={require("../../../assets/logoTipoSVGMasPNG.png")}
+          source={require("../../../assets/images/logo.png")}
         />
         <Text style={[homeStyle.fucshia, homeStyle.title]}>Fuchsia</Text>
       </View>

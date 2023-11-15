@@ -9,12 +9,17 @@ import { ProgressBar, Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FucshiaModal from "../../components/Modal";
 import { salvarDispositivo } from "../../utils/banco";
+import MainButton from "../../components/mainButton";
+import SmallButton from "../../components/smallButton";
+import setupStyle from "../../components/SetupTemplate/style";
 
 export default function Setup1() {
   const [devices, setDevices] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const navigation = useNavigation();
   const [helpModalVisible, setHelpModalVisible] = React.useState(false);
+  const [haveDevice, setHaveDevice] = React.useState(true);
+  const [testando, setTestando] = React.useState(false);
 
   // função para solicitar permissão de localização
   const permitir = async () => {
@@ -32,8 +37,10 @@ export default function Setup1() {
 
   const fetchDevices = async () => {
     try {
-      const devicesFound = await scanNetwork();
+      const devicesFound = await scanNetwork(setTestando);
       setDevices(devicesFound);
+      devicesFound.length > 0 ? setHaveDevice(true) : setHaveDevice(false);
+      typeof devicesFound === "string" ? setTestando(devicesFound) : null;
       console.log(devicesFound);
     } catch (error) {
       console.log(error);
@@ -45,6 +52,7 @@ export default function Setup1() {
   }
 
   function handleAction(route, device = null) {
+    console.log('Alguma coisa qualquer')
     if (route === "wifi") {
       permitir();
       setLoading(true);
@@ -78,98 +86,118 @@ export default function Setup1() {
 
   return (
     <View style={SetupStyle.container}>
-      <SetupTemplate titulo="Selecione as placas" currentPage={1} />
+      <SetupTemplate title="Selecione as Placas" currentPage={1} />
 
-      <View style={SetupStyle.containerItens}>
-        <Text
-          style={{ fontWeight: "bold", alignSelf: "center", color: "#FFFFFF" }}
-        >
-          Precisamos de acesso a sua localização
-          <Text style={[SetupStyle.fucshia]}>
-            {" "}
-            para buscar dispositivos próximos.
+      {loading ? (
+        <View style={{ alignSelf: "center" }}>
+          <Text>
+            {testando}
           </Text>
-        </Text>
-        <View>
-          {devices.map((device, index) => (
-            <Button
-              key={index}
-              mode="contained"
-              buttonColor="#FF00FF"
-              style={{
-                alignContent: "center",
-                alignItems: "center",
-                alignSelf: "center",
-                marginVertical: 4,
-                width: 100,
-                height: 40,
-              }}
-              onPress={() => handleAction("salvar", device)}
-            >
-              {device.IP}
-            </Button>
-          ))}
+          <ProgressBar
+            indeterminate={true}
+            size={80} // Adjust size according to your design
+            color={'#FF00FF'}
+            style={{ marginTop: 20 }}
+          />
         </View>
-        <View
-          style={{
-            position: "absolute",
-            bottom: 0,
-            alignSelf: "center",
-            alignContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {loading ? (
-            <View style={{ alignSelf: "center" }}>
-              <ProgressBar
-                indeterminate={true}
-                width={300}
-                color={"#FF00FF"}
-                style={{ marginTop: 20 }}
-              />
+      ) : (
+        <>
+          {haveDevice ? (
+            <View style={SetupStyle.containerItens}>
+              <Text
+                style={setupStyle.textInside}
+              >
+                Precisamos de acesso a sua localização
+                <Text style={[SetupStyle.fucshia]}>
+                  {" "}
+                  para buscar dispositivos próximos.
+                </Text>
+              </Text>
+              <View>
+                {devices.map((device, index) => (
+                  <>
+                    <MainButton
+                      key={index}
+                      onPress={() => handleAction("salvar", device)}
+                      text={device.IP}
+                    />
+                    <View />
+                  </>
+                ))}
+              </View>
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  alignSelf: "center",
+                  alignContent: "center",
+                  alignItems: "center",
+                  paddingBottom: 50,
+                }}
+              >
+                <MainButton
+                  mode="contained"
+                  buttonColor="#FF00FF"
+                  onPress={() => handleAction("wifi")}
+                  style={{ marginVertical: 4 }}
+                  text="BUSCAR"
+                />
+              </View>
             </View>
           ) : (
-            <View />
+            <>
+              <View style={SetupStyle.containerItens}>
+                <Button
+                  icon={() => (
+                    <Icon name="alpha-x-circle-outline"
+                      size={60} color="#FF00FF" />
+                  )}
+                ></Button>
+                <Text
+                  style={{ fontWeight: "bold", alignSelf: "center", color: "#000" }}
+                >
+                  Não encontramos equipamentos próximos.
+                </Text>
+                <View
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    alignSelf: "center",
+                    alignContent: "center",
+                    alignItems: "center",
+                    paddingBottom: 50,
+                  }}
+                >
+                  <MainButton
+                    onPress={() => setHaveDevice(true)}
+                    text="Tentar novamente"
+                  />
+                </View>
+              </View>
+            </>
           )}
-          <Button
-            mode="contained"
-            buttonColor="#FF00FF"
-            onPress={() => handleAction("wifi")}
-            style={{ marginVertical: 4 }}
-          >
-            Buscar
-          </Button>
-        </View>
-      </View>
+        </>
+      )}
 
       <View style={SetupStyle.containerButton}>
-        <Button
-          icon={() => (
-            <Icon
-              name="arrow-left-bold-box-outline"
-              size={60}
-              color="#FF00FF"
-            />
-          )}
+        <SmallButton
+          text="VOLTAR"
           onPress={() => navigation.goBack()}
-          style={{ marginHorizontal: 4 }}
+          type="secondary"
+          disabled={false}
         />
 
-        <Button
+        {/* <Button
           icon={() => <Icon name="help-box" size={60} color="#FF00FF" />}
           onPress={() => handleAction("ajudaporfavorsocorro")}
           style={{ marginHorizontal: 4 }}
-        />
-        <Button
-          icon={() => (
-            <Icon
-              name="arrow-right-bold-box-outline"
-              size={60}
-              color="#FF00FF"
-            />
-          )}
+        /> */}
+
+        <SmallButton
+          text="PRÓXIMO"
           onPress={() => handleRoute("Setup2")}
-          style={{ marginHorizontal: 4 }}
+          type="primary"
+          disabled={false}
         />
       </View>
       <FucshiaModal
