@@ -9,7 +9,11 @@ import { ProgressBar, Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import FucshiaModal from "../../components/Modal";
 import { salvarDispositivo } from "../../utils/banco";
-import FuchsiaButton from "../../components/FucshiaButton";
+import MainButton from "../../components/mainButton";
+import SmallButton from "../../components/smallButton";
+import StepIndicator from "../../components/stepIndicator";
+import { Color, FontFamily } from "../../../GlobalStyles.js";
+import setupStyle from "../../components/SetupTemplate/style";
 
 export default function Setup1() {
   const [devices, setDevices] = React.useState([]);
@@ -84,17 +88,17 @@ export default function Setup1() {
 
   return (
     <View style={SetupStyle.container}>
-      <SetupTemplate titulo="Selecione as placas" currentPage={1} />
+      <SetupTemplate title="Selecione as Placas" currentPage={1} />
 
       {loading ? (
         <View style={{ alignSelf: "center" }}>
-         <Text>
-         {testando}
-         </Text>
+          <Text>
+            {testando}
+          </Text>
           <ProgressBar
             indeterminate={true}
-            width={300}
-            color={"#FF00FF"}
+            size={80} // Adjust size according to your design
+            color={'#FF00FF'}
             style={{ marginTop: 20 }}
           />
         </View>
@@ -103,7 +107,7 @@ export default function Setup1() {
           {haveDevice ? (
             <View style={SetupStyle.containerItens}>
               <Text
-                style={{ fontWeight: "bold", alignSelf: "center", color: "#FFFFFF" }}
+                style={setupStyle.textInside}
               >
                 Precisamos de acesso a sua localização
                 <Text style={[SetupStyle.fucshia]}>
@@ -114,7 +118,7 @@ export default function Setup1() {
               <View>
                 {devices.map((device, index) => (
                   <>
-                    <FuchsiaButton
+                    <MainButton
                       key={index}
                       onPress={() => handleAction("salvar", device)}
                       text={device.IP}
@@ -133,7 +137,7 @@ export default function Setup1() {
                   paddingBottom: 50,
                 }}
               >
-                <FuchsiaButton
+                <MainButton
                   mode="contained"
                   buttonColor="#FF00FF"
                   onPress={() => handleAction("wifi")}
@@ -148,7 +152,7 @@ export default function Setup1() {
                 <Button
                   icon={() => (
                     <Icon name="alpha-x-circle-outline"
-                     size={60} color="#FF00FF" />
+                      size={60} color="#FF00FF" />
                   )}
                 ></Button>
                 <Text
@@ -166,7 +170,7 @@ export default function Setup1() {
                     paddingBottom: 50,
                   }}
                 >
-                  <FuchsiaButton
+                  <MainButton
                     onPress={() => setHaveDevice(true)}
                     text="Tentar novamente"
                   />
@@ -178,33 +182,24 @@ export default function Setup1() {
       )}
 
       <View style={SetupStyle.containerButton}>
-        <Button
-          icon={() => (
-            <Icon
-              name="arrow-left-bold-box-outline"
-              size={60}
-              color="#FF00FF"
-            />
-          )}
+        <SmallButton
+          text="VOLTAR"
           onPress={() => navigation.goBack()}
-          style={{ marginHorizontal: 4 }}
+          type="secondary"
+          disabled={false}
         />
 
-        <Button
+        {/* <Button
           icon={() => <Icon name="help-box" size={60} color="#FF00FF" />}
           onPress={() => handleAction("ajudaporfavorsocorro")}
           style={{ marginHorizontal: 4 }}
-        />
-        <Button
-          icon={() => (
-            <Icon
-              name="arrow-right-bold-box-outline"
-              size={60}
-              color="#FF00FF"
-            />
-          )}
+        /> */}
+
+        <SmallButton
+          text="PRÓXIMO"
           onPress={() => handleRoute("Setup2")}
-          style={{ marginHorizontal: 4 }}
+          type="primary"
+          disabled={false}
         />
       </View>
       <FucshiaModal

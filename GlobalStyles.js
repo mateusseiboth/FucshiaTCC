@@ -5,13 +5,20 @@ export const FontFamily = {
 };
 
 export const Color = {
+  // Fuchsia colors
   colorFuchsia: "#da62d4",
   colorFuchsiaShadow: "#c24cbd",
+  colorOrchid_200: "rgba(218, 98, 212, 0.5)",
+
+  // Gray colors
+  colorDisabled: "#d9d9d9",
+  colorDisabledShadow: "#c0c0c0",
   colorDarkslategray_100: "#434343",
   colorGray_100: "#808080",
   colorGray_200: "rgba(0, 0, 0, 0.35)",
+
+  // Other colors
   colorWhite: "#fff",
-  colorOrchid_200: "rgba(218, 98, 212, 0.5)",
   colorWhitesmoke_100: "#f1f1f1",
   colorWhitesmoke_200: "#ebebeb",
   colorWhitesmoke_300: "#eaeaea",

@@ -25,7 +25,7 @@ export default function FucshiaHome() {
           <Image
             style={styles.tinyLogo}
             resizeMode="contain"
-            source={require("../../../assets/logoTipoSVGMasPNG.png")}
+            source={require("../../../assets/images/logo.png")}
           />
         </View>
         <View style={styles.topBarRight}>

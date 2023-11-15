@@ -1,9 +1,12 @@
 import * as React from "react";
 import { Image, Text, View, StyleSheet, ImageBackground } from "react-native";
-import FuchsiaButton from "../../components/FucshiaButton";
 import { useNavigation } from "@react-navigation/native";
 import { recuperarDispositivo } from "../../utils/banco";
-import { Color } from "../../../GlobalStyles";
+import { Color, FontFamily } from "../../../GlobalStyles";
+import MainButton from "../../components/mainButton";
+
+const backgroundSource = require("../../../assets/images/background.jpg");
+const logoSource = require("../../../assets/images/logo.png");
 
 export default function BemVindo() {
   const navigation = useNavigation();
@@ -37,22 +40,19 @@ export default function BemVindo() {
   }
 
   return (
-    <ImageBackground
-      source={require("../../../assets/bolinhas-fundo.jpg")}
-      style={homeStyle.backgroundImage}
-    >
-      <View style={homeStyle.container}>
-        <View style={homeStyle.containerLogo}>
+    <ImageBackground source={backgroundSource} style={styles.backgroundImage}>
+      <View style={styles.container}>
+        <View style={styles.containerLogo}>
           <Image
-            style={homeStyle.tinyLogo}
+            style={styles.tinyLogo}
             resizeMode="contain"
-            source={require("../../../assets/logoTipoSVGMasPNG.png")}
+            source={logoSource}
           />
         </View>
-        <Text style={[homeStyle.fucshia, homeStyle.title]}>Fuchsia</Text>
+        <Text style={styles.title}>Fuchsia</Text>
 
-        <View style={[homeStyle.bolinha, homeStyle.bolinhaBaixo]} />
-        <View style={homeStyle.containerTitle}>
+        <View style={[styles.bolinha, styles.bolinhaBaixo]} />
+        <View style={styles.containerTitle}>
           <Text
             style={{
               fontWeight: "bold",
@@ -62,7 +62,7 @@ export default function BemVindo() {
             }}
           >
             Bem vindo ao
-            <Text style={[homeStyle.fucshia]}> Fucshia Home Assistant</Text>
+            <Text style={[styles.textColor]}> Fucshia Home Assistant!</Text>
           </Text>
           <View>
             <Text
@@ -73,7 +73,7 @@ export default function BemVindo() {
                 fontSize: 18,
                 marginHorizontal: 20,
                 paddingTop: 20,
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               Deixe me guiá-lo em sua primeira configuração.
@@ -81,15 +81,15 @@ export default function BemVindo() {
           </View>
         </View>
 
-        <View style={homeStyle.containerButton}>
-          <FuchsiaButton
+        <View style={styles.containerButton}>
+          <MainButton
             text="CONTINUAR"
             onPress={() => handleRoute("Setup1")}
             type="primary"
             disabled={false}
           />
           <View style={{ marginBottom: 15 }} />
-          <FuchsiaButton
+          <MainButton
             text="PULAR"
             onPress={() => handleCommand("Mandei parar")}
             type="secondary"
@@ -101,17 +101,19 @@ export default function BemVindo() {
   );
 }
 
-const homeStyle = StyleSheet.create({
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "stretch",
+  },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   containerLogo: {
-    marginTop: 50,
+    marginTop: 100,
     opacity: 0.7,
-    //borderWidth: 2,
-    //borderColor: Color.colorCadetblue,
   },
   containerTitle: {
     flex: 1,
@@ -121,29 +123,20 @@ const homeStyle = StyleSheet.create({
   },
   containerButton: {
     marginBottom: 100,
-    // borderWidth: 2,
-    // borderColor: Color.colorCadetblue,
   },
   tinyLogo: {
     width: 180,
     height: 180,
     marginBottom: 5,
   },
-  fucshia: {
-    color: Color.colorFuchsia,
-    fontWeight: "bold",
-  },
   title: {
+    color: Color.colorFuchsia,
+    fontFamily: FontFamily.montserratBold,
     fontSize: 32,
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
     fontWeight: "bold",
+    textAlign: "center",
   },
-  // Estilo para a imagem de fundo
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "stretch", // ou "contain" para ajustar a imagem ao invés de cobrir
-    justifyContent: "center",
+  textColor: {
+    color: Color.colorFuchsia,
   },
 });

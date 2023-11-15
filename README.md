@@ -4,7 +4,7 @@
 
 # Projeto de TCC - Fuchsia Home Assistant
 
-Este projeto foi desenvolvido por Flávio Júnior, Mateus Seiboth e Gabriel Evangelista como parte de um trabalho de conclusão de curso.
+Este projeto foi desenvolvido por Flávio Júnior e Mateus Seiboth como parte de um trabalho de conclusão de curso.
 
 O objetivo deste projeto é criar um sistema de automação residencial, sem a necessidade de um servidor intermediário. A placa do dispositivo irá se comunicar diretamente com o celular do usuário para controlar e integrar vários dispositivos em um único lugar.
 
@@ -64,4 +64,3 @@ Em construção.
 
 - Flávio Júnior - [flaviojr@example.com](mailto:flaviojr@example.com)
 - Mateus Seiboth - [mateus@example.com](mailto:mateus@example.com)
-- Gabriel Evangelista - [gabriel@example.com](mailto:gabriel@example.com)
