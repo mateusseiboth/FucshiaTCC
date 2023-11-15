@@ -1,16 +1,18 @@
 import { StyleSheet, useColorScheme } from "react-native";
+import { Color } from "../../../GlobalStyles";
 
 const setupStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1B1B1B",
+    backgroundColor: Color.colorWhite,
   },
   containerItens: {
     width: "88%",
     height: "60%",
     alignSelf: "center",
     top: -20,
-    backgroundColor: "#252525",
+    backgroundColor: Color.colorWhitesmoke_100,
+    borderRadius: 20
   },
   containerComum: {
     width: "88%",
@@ -27,6 +29,8 @@ const setupStyle = StyleSheet.create({
     top: -10,
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 20,
+    marginRight: 0,
   },
   containerButton: {
     flex: 0.5,
@@ -52,12 +56,12 @@ const setupStyle = StyleSheet.create({
     fontWeight: "bold",
   },
   title: {
-    marginTop: 80,
+    marginTop: 115,
     fontSize: 32,
     alignSelf: "center",
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: Color.colorFuchsia,
   },
   subTitle: {
     fontSize: 26,

@@ -11,7 +11,7 @@ export default function SetupTemplate(props) {
     <View style={SetupStyle.container}>
       <View style={SetupStyle.containerSetup}>
         <Image
-          style={SetupStyle.tinyLogo}
+          style={[SetupStyle.tinyLogo, {marginTop: 20}]}
           resizeMode="contain"
           source={require("../../../assets/logoTipoSVGMasPNG.png")}
         />
