@@ -5,18 +5,46 @@ import {
   View,
   ToastAndroid,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Flutuante from "../../components/menuFlutuante/menuFlutuante";
 import FucshiaBar from "../../components/topBar/topBar";
 import axios from "axios";
 import { recuperarDispositivo } from "../../utils/banco";
-import { ProgressBar } from "react-native-paper";
+import { Modal, ProgressBar, TextInput } from "react-native-paper";
 
 export default function Luzes() {
   const [elementos, setElementos] = React.useState([]);
   const [device, setDevice] = React.useState(null);
   const [testando, setTestando] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
+  const [item, setItem] = React.useState(null);
+  const [textInput, setTextInput] = React.useState("");
+
+  const handleGPIO = (item) => {
+    setTextInput("");
+    console.log(item);
+    setItem(item);
+    Alert.alert(
+      "Renomear equipamento",
+      `Renomear equipamento ${item.title}?`,
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "Clica aí irmão",
+          onPress: () => {
+            // adiciona o dispositivo ao banco de dados
+            ToastAndroid.show("Não implementei ainda", ToastAndroid.SHORT);
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   async function getDevices() {
     const databaseDevice = await recuperarDispositivo();
@@ -118,6 +146,9 @@ export default function Luzes() {
       elementosRenderizados.push(
         <View style={styles.row} key={`row_${i}`}>
           <TouchableOpacity
+            onLongPress={() => {
+              handleGPIO(item1);
+            }}
             onPress={() => {
               setTestando(true);
               ToastAndroid.show(
