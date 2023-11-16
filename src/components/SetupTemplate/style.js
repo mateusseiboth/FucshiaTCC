@@ -6,6 +6,15 @@ const setupStyle = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.colorWhite,
   },
+  spinnerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlayText: {
+    position: 'absolute',
+    top: '40%',
+  },
   containerItens: {
     flex: 1,
     width: "88%",

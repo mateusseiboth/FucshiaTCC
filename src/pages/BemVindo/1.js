@@ -99,11 +99,10 @@ export default function Setup1() {
           <Text style={[setupStyle.textInside, { paddingBottom: 40 }]}>
             {testando}
           </Text>
-          <ActivityIndicator
-            size={240}
-            color={Color.colorFuchsia}
-            style={{ paddingBottom: 80 }}
-          />
+          <View style={SetupStyle.spinnerContainer}>
+            <ActivityIndicator size={240} color={Color.colorFuchsia} style={{ paddingBottom: 80 }} />
+            <Text style={SetupStyle.overlayText}>{testando}%</Text>
+          </View>
         </View>
       ) : (
         <>
@@ -112,7 +111,7 @@ export default function Setup1() {
               {showDeviceButtons ? (
                 <>
                   {(devices.length <= 0) ? (
-                    
+
                     <Text style={setupStyle.textInside}>
                       Precisamos de acesso a sua localização
                       <Text style={[SetupStyle.fucshia]}>
