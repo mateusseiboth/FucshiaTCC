@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SetupTemplate from "../../components/SetupTemplate/index.js";
 import SetupStyle from "../../components/SetupTemplate/style";
-import { IconButton, Button, ProgressBar } from "react-native-paper";
+import { IconButton, Button, ProgressBar, ActivityIndicator } from "react-native-paper";
 import FucshiaModal from "../../components/Modal";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -11,6 +11,7 @@ import axios from "axios";
 import { recuperarDispositivo } from "../../utils/banco/index.js";
 import SmallButton from "../../components/smallButton.js";
 import { Color } from "../../../GlobalStyles.js";
+import setupStyle from "../../components/SetupTemplate/style";
 
 export default function Setup3() {
   const navigation = useNavigation();
@@ -18,6 +19,9 @@ export default function Setup3() {
   const [testando, setTestando] = React.useState(false);
   const [objectTeste, setObjectTeste] = React.useState("");
   const [device, setDevice] = React.useState(null);
+  const [configuracaoCorreta, setConfiguracaoCorreta] = React.useState(false);
+
+
   function handleRoute(route) {
     navigation.navigate(route, {});
   }
@@ -89,6 +93,7 @@ export default function Setup3() {
       }
 
       setTestando(false);
+      setConfiguracaoCorreta(true);
     }
     teste();
   }, []);
@@ -99,39 +104,40 @@ export default function Setup3() {
 
       <View style={[SetupStyle.containerItens, SetupStyle.centerFuc]}>
         {!testando && (
-          <View style={{ textAlign: "center" }}>
+          <View style={{ textAlign: "center", marginBottom: 20, marginTop: 120 }}>
             <Button
               icon={() => (
                 <Icon
                   name="check-circle-outline"
-                  size={90}
+                  size={120}
                   color={Color.colorFuchsia}
                 />
               )}
             ></Button>
-            <Text style={{ color: Color.colorBlack, textAlign: "center" }}>
+            <Text style={setupStyle.textInside}>
               Tudo Certo com a configuração!
             </Text>
           </View>
         )}
 
-        <Text style={[SetupStyle.centerFuc, { color: Color.colorFuchsia }]}>
-          {testando ? `Testando ${objectTeste}` : ""}
-        </Text>
-        <Text style={[{ color: Color.colorBlack, textAlign: "center" }]}>
+        <Text style={[setupStyle.textInside, {marginBottom: 20}]}>
           {" "}
           {testando
             ? "Processando testes, suas luzes podem piscar durante esse processo"
             : ""}
         </Text>
+
+        <Text style={[SetupStyle.fucshia, {paddingBottom: 40}]}>
+          {testando ? `Testando ${objectTeste}` : ""}
+        </Text>
+
         {testando ? (
           <View style={{ alignSelf: "center" }}>
-            <ProgressBar
-              indeterminate={true}
-              width={300}
-              color={"#FF00FF"}
-              style={{ marginTop: 20 }}
-            />
+            <ActivityIndicator
+            size={240}
+            color={Color.colorFuchsia}
+            style={{ paddingBottom: 80 }}
+          />
           </View>
         ) : (
           <View />
@@ -156,7 +162,7 @@ export default function Setup3() {
           text="PRÓXIMO"
           onPress={() => handleRoute("FucshiaHome")}
           type="primary"
-          disabled={false}
+          disabled={!configuracaoCorreta}
         />
       </View>
 

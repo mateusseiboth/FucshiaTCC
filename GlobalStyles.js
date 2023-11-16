@@ -17,6 +17,9 @@ export const Color = {
   colorGray_100: "#808080",
   colorGray_200: "rgba(0, 0, 0, 0.35)",
 
+  // Red Colors
+  colorError: '#ee6969',
+
   // Other colors
   colorWhite: "#fff",
   colorWhitesmoke_100: "#f1f1f1",

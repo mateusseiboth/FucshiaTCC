@@ -37,7 +37,7 @@ const setupStyle = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 30,
-    marginBottom: 50,
+    marginBottom: 40,
     marginTop: 20,
   },
   tinyLogo: {
@@ -49,6 +49,8 @@ const setupStyle = StyleSheet.create({
   fucshia: {
     color: Color.colorFuchsia,
     fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 18,
   },
   title: {
     marginTop: 115,
@@ -118,6 +120,14 @@ const setupStyle = StyleSheet.create({
     fontSize: 18,
     alignSelf: "center",
     color: Color.colorGray_100,
+    fontWeight: "bold",
+    marginTop: 30,
+    textAlign: "center",
+  },
+  textError: {
+    fontSize: 18,
+    alignSelf: "center",
+    color: Color.colorError,
     fontWeight: "bold",
     marginTop: 30,
     textAlign: "center",

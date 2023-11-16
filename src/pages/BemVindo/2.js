@@ -21,6 +21,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import SmallButton from "../../components/smallButton.js";
 import setupStyle from "../../components/SetupTemplate/style";
 import { Color } from "../../../GlobalStyles.js";
+import { KeyboardAvoidingView } from 'react-native';
 
 export default function Setup2() {
   const navigation = useNavigation();
@@ -67,14 +68,14 @@ export default function Setup2() {
                 item > 250
                   ? "Relay Invertido"
                   : item > 190 && item < 200
-                  ? "Switch Normal"
-                  : "Não definido",
+                    ? "Switch Normal"
+                    : "Não definido",
               pino:
                 index >= 6 && index <= 7
                   ? index + 3
                   : index >= 8
-                  ? index + 4
-                  : index,
+                    ? index + 4
+                    : index,
               nome: "",
               chaveItem: item,
             };
@@ -128,9 +129,8 @@ export default function Setup2() {
                 onPress={() => {
                   handleGPIO(item1);
                 }}
-                text={`GPIO ${item1.pino} ${
-                  item1.nome == "" ? item1.funcao : item1.nome
-                }`}
+                text={`GPIO ${item1.pino} ${item1.nome == "" ? item1.funcao : item1.nome
+                  }`}
               ></SmallButton>
             </View>
             {item2 && (
@@ -139,9 +139,8 @@ export default function Setup2() {
                   onPress={() => {
                     handleGPIO(item2);
                   }}
-                  text={`GPIO ${item2.pino} ${
-                    item2.nome == "" ? item2.funcao : item2.nome
-                  }`}
+                  text={`GPIO ${item2.pino} ${item2.nome == "" ? item2.funcao : item2.nome
+                    }`}
                 ></SmallButton>
               </View>
             )}
@@ -163,10 +162,55 @@ export default function Setup2() {
     setShowModal(true);
   };
 
-  return (
-    <View style={SetupStyle.container}>
-      <SetupTemplate title="Associe as Placas" currentPage={2} />
+  const handleSave = () => {
+    axios
+      .get(
+        "http://" +
+        device +
+        "/cm?cmnd=FriendlyName" +
+        item.positionFriendly +
+        "%20" +
+        textInput
+      )
+      .then((result) => {
+        console.log(result.data);
+        ToastAndroid.show(
+          `Nome ${textInput} aplicado em GPIO${item.pino}`,
+          ToastAndroid.LONG
+        );
+        const newArray = gpio.map((itemGPIO) => {
+          return {
+            ...itemGPIO,
+            nome:
+              itemGPIO.pino == item.pino ? textInput : itemGPIO.nome,
+          };
+        });
+        setGPIO(newArray);
 
+        setShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        Alert.alert(
+          "Ocorreu um erro",
+          `${error.message}`,
+          [
+            {
+              text: "Fechar",
+              style: "cancel",
+            },
+          ],
+          { cancelable: true }
+        );
+      });
+  };
+
+  return (
+    <KeyboardAvoidingView
+      style={SetupStyle.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <SetupTemplate title="Associe as Placas" currentPage={2} />
       <View style={SetupStyle.containerItens}>
         <Text style={setupStyle.textInside}>
           Clique no GPIO para nomear
@@ -178,7 +222,7 @@ export default function Setup2() {
         <Text
           style={[
             SetupStyle.fucshia,
-            { textAlign: "center", fontSize: 18, paddingTop: 30 },
+            { textAlign: "center", fontSize: 18, paddingTop: 20, marginBottom: 20 },
           ]}
         >
           Configurando {device}
@@ -247,30 +291,11 @@ export default function Setup2() {
           visible={showModal}
           animationType="slide"
           transparent={true}
-          onRequestClose={() => {
-            onClose();
-          }}
+          onRequestClose={() => onClose()}
         >
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: "black",
-                padding: 20,
-                width: "80%",
-                borderRadius: 8,
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{ fontWeight: "bold", fontSize: 18, marginBottom: 10 }}
-              >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>
                 Renomeando GPIO{item.pino}
               </Text>
 
@@ -281,73 +306,19 @@ export default function Setup2() {
                 onChangeText={(text) => setTextInput(text)}
               />
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
+              <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => onClose()}>
-                  <Text
-                    style={{ color: "blue", marginTop: 20, marginRight: 20 }}
-                  >
-                    Fechar
-                  </Text>
+                  <Text style={[styles.buttonText, { marginRight: 20 }]}>Fechar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    axios
-                      .get(
-                        "http://" +
-                          device +
-                          "/cm?cmnd=FriendlyName" +
-                          item.positionFriendly +
-                          "%20" +
-                          textInput
-                      )
-                      .then((result) => {
-                        console.log(result.data);
-                        ToastAndroid.show(
-                          `Nome ${textInput} aplicado em GPIO${item.pino}`,
-                          ToastAndroid.LONG
-                        );
-                        const newArray = gpio.map((itemGPIO) => {
-                          return {
-                            ...itemGPIO,
-                            nome:
-                              itemGPIO.pino == item.pino
-                                ? textInput
-                                : itemGPIO.nome,
-                          };
-                        });
-                        setGPIO(newArray);
-
-                        setShowModal(false);
-                      })
-                      .catch((error) => {
-                        console.log(error);
-                        Alert.alert(
-                          "Ocorreu um erro",
-                          `${error.message}`,
-                          [
-                            {
-                              text: "Fechar",
-                              style: "cancel",
-                            },
-                          ],
-                          { cancelable: true }
-                        );
-                      });
-                  }}
-                >
-                  <Text style={{ color: "blue", marginTop: 20 }}>Salvar</Text>
+                <TouchableOpacity onPress={handleSave}>
+                  <Text style={[styles.buttonText, { marginLeft: 20 }]}>Salvar</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
         </Modal>
       )}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -376,5 +347,43 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     width: "100%",
+  },
+  modalContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: Color.colorWhite,
+    padding: 20,
+    width: "80%",
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  modalTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  input: {
+    height: 40,
+    borderColor: Color.colorSmoke,
+    borderWidth: 1,
+    borderRadius: 15,
+    width: "100%",
+    marginVertical: 20,
+    padding: 10,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  buttonText: {
+    color: Color.colorWhite,
+    borderRadius: 10,
+    fontWeight: "bold",
+    backgroundColor: Color.colorFuchsia,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
   },
 });
