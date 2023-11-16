@@ -15,7 +15,7 @@ export async function scanNetwork(setTestando) {
     const fetchPromises = [];
     for (let i = 1; i < 255; i++) {
       await new Promise((r) => setTimeout(r, 100));
-      setTestando("Testando o IP " + networkPrefix + i);
+      setTestando("Porcetagem da busca " + (0.39 * i).toFixed(2));
       if (i == 254) {
         setTestando("Aguradando resposta dos equipamentos...");
       }
@@ -23,7 +23,12 @@ export async function scanNetwork(setTestando) {
       const host = networkPrefix + i;
       console.log(`http://${host}/cm?cmnd=status`);
       const promise = axios
-        .get(`http://${host}/cm?cmnd=status`)
+        .get(`http://${host}/cm?cmnd=status`, {
+          timeout: 3000,
+          headers: {
+            Accept: "application/json",
+          },
+        })
         .then((response) => {
           console.log(response);
           if (
