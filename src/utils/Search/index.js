@@ -15,9 +15,9 @@ export async function scanNetwork(setTestando) {
     const fetchPromises = [];
     for (let i = 1; i < 255; i++) {
       await new Promise((r) => setTimeout(r, 100));
-      setTestando("Porcetagem da busca " + (0.39 * i).toFixed(2));
+      setTestando((0.39 * i).toFixed(2) + "%");
       if (i == 254) {
-        setTestando("Aguradando resposta dos equipamentos...");
+        setTestando("Finalizando");
       }
       console.log("Testando o IP " + networkPrefix + i);
       const host = networkPrefix + i;
@@ -47,7 +47,7 @@ export async function scanNetwork(setTestando) {
           };
           devices.push(jsonString);
         })
-        .catch((error) => {});
+        .catch((error) => { });
       fetchPromises.push(promise);
     }
     await Promise.all(fetchPromises);

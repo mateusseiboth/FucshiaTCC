@@ -134,7 +134,7 @@ export default function Setup3() {
         {testando ? (
           <View style={{ alignSelf: "center" }}>
             <ActivityIndicator
-            size={240}
+            size={280}
             color={Color.colorFuchsia}
             style={{ paddingBottom: 80 }}
           />

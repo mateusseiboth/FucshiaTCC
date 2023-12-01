@@ -5,6 +5,7 @@ import Xtudo from "../../components/menuXtudo/menuXtudo";
 import Flutuante from "../../components/menuFlutuante/menuFlutuante";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Color } from "../../../GlobalStyles";
 
 export default function FucshiaHome() {
   const navigation = useNavigation();
@@ -21,6 +22,9 @@ export default function FucshiaHome() {
   return (
     <View>
       <View style={styles.topBar} elevation={5}>
+      <View style={styles.topBarRight}>
+          <Xtudo isOpen={isMenuOpen} style={{ zIndex: 999 }} />
+        </View>
         <View style={styles.topBarLeft}>
           <Image
             style={styles.tinyLogo}
@@ -91,7 +95,6 @@ export default function FucshiaHome() {
             <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
           </View>
         </TouchableOpacity>
-
         <TouchableOpacity
           style={[styles.itens, { backgroundColor: "#9AD262" }]}
           onPress={() => {
@@ -113,7 +116,7 @@ export default function FucshiaHome() {
         </TouchableOpacity>
         <View
           style={{
-           marginTop: 96,
+            marginTop: 96,
             width: "60%",
             height: "13%",
             justifyContent: "center",
@@ -124,7 +127,7 @@ export default function FucshiaHome() {
           <Flutuante />
         </View>
       </View>
-      
+
     </View>
   );
 }
@@ -133,10 +136,20 @@ const styles = StyleSheet.create({
   itens: {
     marginTop: 20,
     columnGap: 15,
-    width: "60%",
+    borderRadius: 10,
+    width: "80%",
     height: "13%",
     justifyContent: "center",
     zIndex: 2,
+  },
+  itensBackground: {
+    marginTop: 20,
+    columnGap: 15,
+    borderRadius: 10,
+    width: "60%",
+    height: "20%",
+    justifyContent: "center",
+    zIndex: 1,
   },
   icons: {
     alignSelf: "center",
@@ -155,19 +168,23 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "column",
-    backgroundColor: "#1B1B1B",
+    backgroundColor: Color.colorWhitesmoke_200,
     width: "100%",
     height: "100%",
     alignItems: "center",
     zIndex: 3,
   },
   topBar: {
-    backgroundColor: "#000000",
+    backgroundColor: Color.colorWhite,
     height: 70,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
+    shadowOffset: { width: 0, height: 4 },
+    shadowColor: "#000000",
+    shadowRadius: 4,
+    shadowOpacity: 0.5,
     zIndex: 4,
   },
   topBarLeft: {
@@ -180,5 +197,6 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 60,
     height: 60,
+    opacity: 0.7,
   },
 });

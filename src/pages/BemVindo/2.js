@@ -7,6 +7,7 @@ import {
   TextInput,
   ToastAndroid,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SetupTemplate from "../../components/SetupTemplate/index.js";
@@ -131,6 +132,7 @@ export default function Setup2() {
                 }}
                 text={`GPIO ${item1.pino} ${item1.nome == "" ? item1.funcao : item1.nome
                   }`}
+                style={{ color: Color.colorBlack }}
               ></SmallButton>
             </View>
             {item2 && (
@@ -228,18 +230,19 @@ export default function Setup2() {
           Configurando {device}
         </Text>
 
-        {renderSelects()}
+
         {loading ? (
           <View style={{ alignSelf: "center" }}>
-            <ProgressBar
-              indeterminate={true}
-              width={300}
-              color={"#FF00FF"}
-              style={{ marginTop: 20 }}
+            <ActivityIndicator
+              size={360}
+              color={Color.colorFuchsia}
+              style={{ paddingBottom: 80 }}
             />
           </View>
         ) : (
-          <View />
+          <>
+            {renderSelects()}
+          </>
         )}
       </View>
 
@@ -327,7 +330,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
   },
   selectGroup: {
     flex: 1,

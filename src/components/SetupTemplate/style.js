@@ -13,7 +13,7 @@ const setupStyle = StyleSheet.create({
   },
   overlayText: {
     position: 'absolute',
-    top: '40%',
+    top: '38%',
   },
   containerItens: {
     flex: 1,
@@ -131,6 +131,13 @@ const setupStyle = StyleSheet.create({
     color: Color.colorGray_100,
     fontWeight: "bold",
     marginTop: 30,
+    textAlign: "center",
+  },
+  textSpinner: {
+    fontSize: 24,
+    alignSelf: "center",
+    color: Color.colorFuchsia,
+    fontWeight: "bold",
     textAlign: "center",
   },
   textError: {

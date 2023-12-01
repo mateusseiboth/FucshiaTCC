@@ -97,11 +97,11 @@ export default function Setup1() {
       {loading ? (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={[setupStyle.textInside, { paddingBottom: 40 }]}>
-            {testando}
+            Buscando equipamentos na rede...
           </Text>
           <View style={SetupStyle.spinnerContainer}>
-            <ActivityIndicator size={240} color={Color.colorFuchsia} style={{ paddingBottom: 80 }} />
-            <Text style={SetupStyle.overlayText}>{testando}%</Text>
+            <ActivityIndicator size={360} color={Color.colorFuchsia} style={{ paddingBottom: 80 }} />
+            <Text style={[SetupStyle.overlayText, SetupStyle.textSpinner]}>{testando}</Text>
           </View>
         </View>
       ) : (
