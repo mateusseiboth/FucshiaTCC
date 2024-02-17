@@ -30,7 +30,7 @@ export default function Flutua() {
         style={styles.button}
         onPress={() => {
           console.log("apertei");
-          onPress("lamp");
+          onPress("portoes");
         }}
       >
         <Icon
@@ -69,9 +69,9 @@ export default function Flutua() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#000000",
+    backgroundColor: "white",
     position: "absolute",
-    bottom: 10,
+    bottom: 25,
     alignSelf: "center",
     flexDirection: "row",
     borderRadius: 25,
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 5,
-    elevation: 5,
   },
   icons: {
     alignSelf: "center",

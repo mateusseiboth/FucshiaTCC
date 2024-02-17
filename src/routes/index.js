@@ -9,6 +9,7 @@ import Setup2 from "../pages/BemVindo/2.js";
 import Setup3 from "../pages/BemVindo/3.js";
 import Luzes from "../pages/Telas-Iot/luzes.js";
 import splash from "../pages/BemVindo/splash.js";
+import Portoes from "../pages/Telas-Iot/portao";
 
 const Stack = createNativeStackNavigator();
 
@@ -59,6 +60,11 @@ export default function Routes() {
       <Stack.Screen
         name="lamp"
         component={Luzes}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="portoes"
+        component={Portoes}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

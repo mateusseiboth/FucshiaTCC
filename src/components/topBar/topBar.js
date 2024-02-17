@@ -27,7 +27,7 @@ export default function FucshiaBar(props) {
         title: {
             width: "100%",
             textAlign: 'center',
-            backgroundColor: '#63D5E2',
+           
             color: '#FFFFFF',
             padding: 10,
             fontSize: 20,

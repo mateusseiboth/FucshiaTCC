@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Animated } from 'react-native';
 import { FontFamily, Color } from '../../GlobalStyles';
 
-export default function SmallButton(props) {
+export default function IotButton(props) {
     const [animation] = useState(new Animated.Value(0));
 
     const handlePressIn = () => {
@@ -56,8 +56,9 @@ export default function SmallButton(props) {
     const { buttonStyles, backgroundStyles, buttonText } = getButtonStyles();
 
     return (
-        <View>
-            <Animated.View style={animatedButtonStyle}>
+        <Animated.View style={animatedButtonStyle}>
+            <View style={styles.itens}>
+                <Text style={[styles.title, { backgroundColor: props.bgColor,}]}>{props.title}</Text>
                 <TouchableOpacity
                     activeOpacity={1}
                     style={buttonStyles}
@@ -68,56 +69,31 @@ export default function SmallButton(props) {
                 >
                     <Text style={buttonText}>{props.text ? props.text : props.children}</Text>
                 </TouchableOpacity>
-            </Animated.View>
-            <View style={backgroundStyles} />
-        </View>
+
+                <View style={backgroundStyles} />
+            </View>
+        </Animated.View>
     );
 }
 
 const baseButtonStyle = {
-    borderRadius: 20,
-    width: 150,
-    height: 55,
+    width: "60%",
+    height: "60%",
     alignItems: 'center',
     justifyContent: 'center',
-};
-
-const baseBackgroundStyle = {
-    borderRadius: 20,
-    width: 150,
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    zIndex: -1,
-    marginTop: 5,
 };
 
 const styles = StyleSheet.create({
-    background: {
-        ...baseBackgroundStyle,
-        backgroundColor: Color.colorFuchsiaShadow,
-    },
-    backgroundSecondary: {
-        ...baseBackgroundStyle,
-        backgroundColor: Color.colorSmoke,
-    },
     button: {
         ...baseButtonStyle,
         backgroundColor: Color.colorFuchsia,
-        borderWidth: 1,
-        borderColor: Color.colorFuchsiaShadow,
     },
     buttonSecondary: {
         ...baseButtonStyle,
         backgroundColor: Color.colorWhite,
-        borderWidth: 1,
-        borderColor: Color.colorSmoke,
     },
     disabledButton: {
         backgroundColor: Color.colorDisabled,
-        borderWidth: 1,
-        borderColor: Color.colorDisabledShadow,
     },
     disabledBackground: {
         opacity: 1,
@@ -137,5 +113,31 @@ const styles = StyleSheet.create({
         fontFamily: FontFamily.montserratBold,
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    itens: {
+        zIndex: 4,
+        width: 150,
+        height: 150,
+        margin: 10,
+        alignItems: "center",
+        backgroundColor: "white",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 15,
+    },
+    title: {
+        width: "100%",
+        textAlign: "center",
+        color: "#FFFFFF",
+        padding: 10,
+        fontSize: 20,
+        fontWeight: "bold",
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
     },
 });

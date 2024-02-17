@@ -39,15 +39,18 @@ export default function HamburgerMenu() {
             }}
           >
             <View style={[styles.itens]}>
-              <Text style={[styles.title]}>
+              <Text style={[styles.title, {marginRight: 5}]}>
                 Resetar configuração
-                <Icon
-                  style={styles.icons}
+              </Text>
+              <Text>
+              <Icon
+                  style={[styles.gearIcon]}
                   name="cog-outline"
                   size={30}
                   color="#648940"
                 />
               </Text>
+             
             </View>
           </TouchableOpacity>
         </View>
@@ -64,12 +67,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   menu: {
-    right: 0,
+    left: 0,
     alignSelf: "center",
     position: "absolute",
     top: 70,
-    width: "auto",
-    height: "auto",
     backgroundColor: "white",
     padding: 10,
     borderRadius: 10,
@@ -84,20 +85,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     marginTop: 5,
-    width: 200,
-    height: 100,
+    width: 250,
+    height: 75,
     fontSize: 18,
+    borderRadius: 5,
   },
   itens: {
+    display: "flex",
     width: "100%",
     height: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   icons: {
     alignSelf: "center",
   },
+  gearIcon: {
+   marginLeft: "5px",
+  },
   title: {
-    marginTop: 30,
-    fontSize: 32,
+    fontSize: 16,
     alignSelf: "center",
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: "bold",

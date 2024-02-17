@@ -22,98 +22,27 @@ export default function FucshiaHome() {
   return (
     <View>
       <View style={styles.topBar} elevation={5}>
-      <View style={styles.topBarRight}>
+        <View style={styles.topBarRight}>
           <Xtudo isOpen={isMenuOpen} style={{ zIndex: 999 }} />
         </View>
         <View style={styles.topBarLeft}>
           <Image
             style={styles.tinyLogo}
-            resizeMode="contain"
+            resizeMode="center"
             source={require("../../../assets/images/logo.png")}
           />
         </View>
-        <View style={styles.topBarRight}>
-          <Xtudo isOpen={isMenuOpen} style={{ zIndex: 999 }} />
+        <View style={styles.topBarRight}  >
+          {/* <Xtudo isOpen={isMenuOpen} style={{ zIndex: 999 }} /> */}
         </View>
       </View>
 
       <View style={styles.container}>
-        <TouchableOpacity
-          style={[styles.itens, { backgroundColor: "#63D5E2" }]}
-          onPress={() => {
-            handleRoute("lamp");
-          }}
-        >
-          <View>
-            <Text style={[styles.title]}>
-              Luzes
-              <Icon
-                style={styles.icons}
-                name="lightbulb-on-outline"
-                size={60}
-                color="#408B93"
-              />
-            </Text>
-            <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.itens, { backgroundColor: "#EB865E" }]}
-          onPress={() => {
-            handleRoute("lamp");
-          }}
-        >
-          <View>
-            <Text style={[styles.title]}>
-              Portões
-              <Icon
-                style={styles.icons}
-                name="door-closed"
-                size={60}
-                color="#99573D"
-              />
-            </Text>
-            <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.itens, { backgroundColor: "#D073D0" }]}
-          onPress={() => {
-            handleRoute("lamp");
-          }}
-        >
-          <View>
-            <Text style={[styles.title]}>
-              Câmeras
-              <Icon
-                style={styles.icons}
-                name="video-outline"
-                size={60}
-                color="#874B87"
-              />
-            </Text>
-            <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.itens, { backgroundColor: "#9AD262" }]}
-          onPress={() => {
-            handleRoute("lamp");
-          }}
-        >
-          <View>
-            <Text style={[styles.title]}>
-              Aparelhos
-              <Icon
-                style={styles.icons}
-                name="devices"
-                size={60}
-                color="#648940"
-              />
-            </Text>
-            <Text style={[styles.subTitle]}>Alguma quantidade instalada</Text>
-          </View>
-        </TouchableOpacity>
+        <ButtonHome callBack={handleRoute} title="Luzes" route="lamp" icon="lightbulb-on-outline" color="#408B93" bgColor="#63D5E2" />
+        <ButtonHome callBack={handleRoute} title="Portões" route="portoes" icon="door-closed" color="#99573D" bgColor="#EB865E" />
+        <ButtonHome callBack={handleRoute} title="Câmeras" route="lamp" icon="video-outline" color="#874B87" bgColor="#D073D0" />
+        <ButtonHome callBack={handleRoute} title="Aparelhos" route="lamp" icon="devices" color="#648940" bgColor="#9AD262" />
+        
         <View
           style={{
             marginTop: 96,
@@ -154,16 +83,27 @@ const styles = StyleSheet.create({
   icons: {
     alignSelf: "center",
   },
+  buttons: {
+    direction: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginRight: 50,
+  },
   title: {
     fontSize: 32,
     alignSelf: "center",
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
     fontWeight: "bold",
     color: "#FFFFFF",
+    marginLeft: 60,
   },
   subTitle: {
-    fontSize: 12,
-    alignSelf: "center",
+    marginLeft: 65,
+    fontSize: 14,
+    color: "black",
+    opacity: 0.4,
+    fontWeight: "bold",
+    // alignSelf: "center",
     //color: useColorScheme() === 'dark' ? '#FFFFFF' : '#000000',
   },
   container: {
@@ -192,11 +132,44 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   topBarRight: {
-    alignItems: "flex-end",
+    flex: 1,
+    alignItems: "flex-start",
   },
   tinyLogo: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     opacity: 0.7,
+    // marginRight: 50,
+    marginTop: 10,
+    marginBottom: 10,
   },
 });
+
+const ButtonHome = (props) => {
+  return (
+    <TouchableOpacity
+      style={[styles.itens, { backgroundColor: props.bgColor}]}
+      onPress={() => {
+        props.callBack(props.route);
+      }}
+    >
+      <View>
+        <View style={[styles.buttons]}>
+          <Text style={[styles.title]}>
+            {props.title}
+          </Text>
+          <Text>
+            <Icon
+              style={styles.icons}
+              name={props.icon}
+              size={60}
+              color={props.color}
+            />
+          </Text>
+        </View>
+        <Text style={[styles.subTitle]}>[ 00 ] Instalado(s)</Text>
+      </View>
+    </TouchableOpacity>
+  )
+
+}

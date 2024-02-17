@@ -13,6 +13,8 @@ import FucshiaBar from "../../components/topBar/topBar";
 import axios from "axios";
 import { recuperarDispositivo } from "../../utils/banco";
 import { Modal, ProgressBar, TextInput } from "react-native-paper";
+import { Color } from "../../../GlobalStyles";
+import IotButton from "../../components/iotButton";
 
 export default function Luzes() {
   const [elementos, setElementos] = React.useState([]);
@@ -145,7 +147,11 @@ export default function Luzes() {
 
       elementosRenderizados.push(
         <View style={styles.row} key={`row_${i}`}>
-          <TouchableOpacity
+          <IotButton
+            title={item1.title}
+            bgColor="#63D5E2"
+            type="secondary"
+            disabled={false}
             onLongPress={() => {
               handleGPIO(item1);
             }}
@@ -158,10 +164,10 @@ export default function Luzes() {
               axios
                 .get(
                   "http://" +
-                    device +
-                    "/cm?cmnd=Power" +
-                    item1.accessGPIO +
-                    "%20toggle"
+                  device +
+                  "/cm?cmnd=Power" +
+                  item1.accessGPIO +
+                  "%20toggle"
                 )
                 .then((response) => {
                   const newArray = elementos.map((item) => {
@@ -188,18 +194,19 @@ export default function Luzes() {
                 });
             }}
           >
-            <View style={styles.itens}>
-              <Text style={[styles.title]}>{item1.title}</Text>
-              <Icon
-                style={styles.icons}
-                name={item1.icon}
-                size={60}
-                color="#408B93"
-              />
-            </View>
-          </TouchableOpacity>
+            <Icon
+              style={styles.icons}
+              name={item1.icon}
+              size={60}
+              color="#408B93"
+            />
+          </IotButton>
           {item2 && (
-            <TouchableOpacity
+            <IotButton
+            title={item2.title}
+            bgColor="#63D5E2"
+            type="secondary"
+            disabled={false}
               onPress={() => {
                 setTestando(true);
                 ToastAndroid.show(
@@ -209,10 +216,10 @@ export default function Luzes() {
                 axios
                   .get(
                     "http://" +
-                      device +
-                      "/cm?cmnd=Power" +
-                      item2.accessGPIO +
-                      "%20toggle"
+                    device +
+                    "/cm?cmnd=Power" +
+                    item2.accessGPIO +
+                    "%20toggle"
                   )
                   .then((response) => {
                     console.log(response.data);
@@ -240,16 +247,13 @@ export default function Luzes() {
                   });
               }}
             >
-              <View style={styles.itens}>
-                <Text style={[styles.title]}>{item2.title}</Text>
-                <Icon
-                  style={styles.icons}
-                  name={item2.icon}
-                  size={60}
-                  color="#408B93"
-                />
-              </View>
-            </TouchableOpacity>
+            <Icon
+              style={styles.icons}
+              name={item2.icon}
+              size={60}
+              color="#408B93"
+            />
+          </IotButton>
           )}
         </View>
       );
@@ -316,7 +320,7 @@ const styles = StyleSheet.create({
     height: 150,
     margin: 10,
     alignItems: "center",
-    backgroundColor: "#1B1B1B",
+    backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
@@ -344,7 +348,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#1B1B1B",
+    backgroundColor: Color.colorWhitesmoke_200,
     width: "100%",
     height: "100%",
     flexDirection: "column",

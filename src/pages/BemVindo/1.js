@@ -179,7 +179,7 @@ export default function Setup1() {
             </View>
           ) : (
             <>
-              <ErroPesquisa />
+              <ErroPesquisa setHaveDevice={setHaveDevice} />
             </>
           )}
         </>
