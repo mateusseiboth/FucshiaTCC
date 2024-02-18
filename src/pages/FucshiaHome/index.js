@@ -1,11 +1,11 @@
 import * as React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {StyleSheet, Text, View, Image, TouchableOpacity} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Xtudo from "../../components/menuXtudo/menuXtudo";
 import Flutuante from "../../components/menuFlutuante/menuFlutuante";
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Color } from "../../../GlobalStyles";
+import {useState} from "react";
+import {useNavigation} from "@react-navigation/native";
+import {Color} from "../../../GlobalStyles";
 
 export default function FucshiaHome() {
   const navigation = useNavigation();
@@ -21,9 +21,15 @@ export default function FucshiaHome() {
 
   return (
     <View>
-      <View style={styles.topBar} elevation={5}>
+      <View
+        style={styles.topBar}
+        elevation={5}
+      >
         <View style={styles.topBarRight}>
-          <Xtudo isOpen={isMenuOpen} style={{ zIndex: 999 }} />
+          <Xtudo
+            isOpen={isMenuOpen}
+            style={{zIndex: 999}}
+          />
         </View>
         <View style={styles.topBarLeft}>
           <Image
@@ -32,17 +38,42 @@ export default function FucshiaHome() {
             source={require("../../../assets/images/logo.png")}
           />
         </View>
-        <View style={styles.topBarRight}  >
-          {/* <Xtudo isOpen={isMenuOpen} style={{ zIndex: 999 }} /> */}
-        </View>
+        <View style={styles.topBarRight}>{/* <Xtudo isOpen={isMenuOpen} style={{ zIndex: 999 }} /> */}</View>
       </View>
 
       <View style={styles.container}>
-        <ButtonHome callBack={handleRoute} title="Luzes" route="lamp" icon="lightbulb-on-outline" color="#408B93" bgColor="#63D5E2" />
-        <ButtonHome callBack={handleRoute} title="Portões" route="portoes" icon="door-closed" color="#99573D" bgColor="#EB865E" />
-        <ButtonHome callBack={handleRoute} title="Câmeras" route="lamp" icon="video-outline" color="#874B87" bgColor="#D073D0" />
-        <ButtonHome callBack={handleRoute} title="Aparelhos" route="lamp" icon="devices" color="#648940" bgColor="#9AD262" />
-        
+        <ButtonHome
+          callBack={handleRoute}
+          title="Luzes"
+          route="lamp"
+          icon="lightbulb-on-outline"
+          color="#408B93"
+          bgColor="#63D5E2"
+        />
+        <ButtonHome
+          callBack={handleRoute}
+          title="Portões"
+          route="portoes"
+          icon="door-closed"
+          color="#99573D"
+          bgColor="#EB865E"
+        />
+        <ButtonHome
+          callBack={handleRoute}
+          title="Câmeras"
+          route="cameras"
+          icon="video-outline"
+          color="#874B87"
+          bgColor="#D073D0"
+        />
+        <ButtonHome
+          callBack={handleRoute}
+          title="Aparelhos"
+          route="lamp"
+          icon="devices"
+          color="#648940"
+          bgColor="#9AD262"
+        />
         <View
           style={{
             marginTop: 96,
@@ -56,7 +87,6 @@ export default function FucshiaHome() {
           <Flutuante />
         </View>
       </View>
-
     </View>
   );
 }
@@ -121,7 +151,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: {width: 0, height: 4},
     shadowColor: "#000000",
     shadowRadius: 4,
     shadowOpacity: 0.5,
@@ -148,16 +178,14 @@ const styles = StyleSheet.create({
 const ButtonHome = (props) => {
   return (
     <TouchableOpacity
-      style={[styles.itens, { backgroundColor: props.bgColor}]}
+      style={[styles.itens, {backgroundColor: props.bgColor}]}
       onPress={() => {
         props.callBack(props.route);
       }}
     >
       <View>
         <View style={[styles.buttons]}>
-          <Text style={[styles.title]}>
-            {props.title}
-          </Text>
+          <Text style={[styles.title]}>{props.title}</Text>
           <Text>
             <Icon
               style={styles.icons}
@@ -170,6 +198,5 @@ const ButtonHome = (props) => {
         <Text style={[styles.subTitle]}>[ 00 ] Instalado(s)</Text>
       </View>
     </TouchableOpacity>
-  )
-
-}
+  );
+};
