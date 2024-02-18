@@ -1,7 +1,7 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import {View, TouchableOpacity, StyleSheet} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useNavigation } from "@react-navigation/native";
+import {useNavigation} from "@react-navigation/native";
 
 export default function Flutua() {
   const navigation = useNavigation();
@@ -44,7 +44,7 @@ export default function Flutua() {
         style={styles.button}
         onPress={() => {
           console.log("apertei");
-          onPress("lamp");
+          onPress("cameras");
         }}
       >
         <Icon
@@ -61,7 +61,12 @@ export default function Flutua() {
           onPress("lamp");
         }}
       >
-        <Icon style={styles.icons} name="devices" size={30} color="#648940" />
+        <Icon
+          style={styles.icons}
+          name="devices"
+          size={30}
+          color="#648940"
+        />
       </TouchableOpacity>
     </View>
   );
