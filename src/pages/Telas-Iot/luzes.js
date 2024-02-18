@@ -1,20 +1,14 @@
 import * as React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ToastAndroid,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import {StyleSheet, Text, View, ToastAndroid, TouchableOpacity, Alert} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Flutuante from "../../components/menuFlutuante/menuFlutuante";
 import FucshiaBar from "../../components/topBar/topBar";
 import axios from "axios";
-import { recuperarDispositivo } from "../../utils/banco";
-import { Modal, ProgressBar, TextInput } from "react-native-paper";
-import { Color } from "../../../GlobalStyles";
+import {recuperarDispositivo} from "../../utils/banco";
+import {Modal, ProgressBar, TextInput} from "react-native-paper";
+import {Color} from "../../../GlobalStyles";
 import IotButton from "../../components/iotButton";
+import ModalRename from "../../components/Modal/renomear";
 
 export default function Luzes() {
   const [elementos, setElementos] = React.useState([]);
@@ -22,30 +16,15 @@ export default function Luzes() {
   const [testando, setTestando] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
   const [item, setItem] = React.useState(null);
-  const [textInput, setTextInput] = React.useState("");
 
-  const handleGPIO = (item) => {
-    setTextInput("");
-    console.log(item);
-    setItem(item);
-    Alert.alert(
-      "Renomear equipamento",
-      `Renomear equipamento ${item.title}?`,
-      [
-        {
-          text: "Cancelar",
-          style: "cancel",
-        },
-        {
-          text: "Clica aí irmão",
-          onPress: () => {
-            // adiciona o dispositivo ao banco de dados
-            ToastAndroid.show("Não implementei ainda", ToastAndroid.SHORT);
-          },
-        },
-      ],
-      { cancelable: false }
-    );
+  const onClose = () => {
+    setShowModal(false);
+  };
+
+  const handleGPIO = (itemInternal) => {
+    console.log(itemInternal);
+    setItem(itemInternal);
+    setShowModal(true);
   };
 
   async function getDevices() {
@@ -94,10 +73,7 @@ export default function Luzes() {
                 return {
                   accessGPIO: item.accessGPIO,
                   title: item.FriendlyName,
-                  icon:
-                    item.Power === "ON"
-                      ? "lightbulb-on-outline"
-                      : "lightbulb-off-outline",
+                  icon: item.Power === "ON" ? "lightbulb-on-outline" : "lightbulb-off-outline",
                 };
               });
               setElementos(setArray);
@@ -108,9 +84,7 @@ export default function Luzes() {
               console.log(error);
             });
 
-          const powerKeys = Object.keys(result.data).filter((key) =>
-            key.startsWith("POWER")
-          );
+          const powerKeys = Object.keys(result.data).filter((key) => key.startsWith("POWER"));
 
           // Criar um novo objeto apenas com as chaves filtradas
           const powerData = {};
@@ -131,11 +105,11 @@ export default function Luzes() {
   };
 
   React.useEffect(() => {
-    // Defina testando como true antes de chamar getGPIO
-    setTestando(true);
-    getGPIO();
-    // Não é necessário definir testando como false aqui
-  }, []);
+    if (!showModal) {
+      setTestando(true);
+      getGPIO();
+    }
+  }, [showModal]);
 
   const renderElementos = (elementos) => {
     console.log(elementos);
@@ -146,7 +120,10 @@ export default function Luzes() {
       const item2 = elementos[i + 1];
 
       elementosRenderizados.push(
-        <View style={styles.row} key={`row_${i}`}>
+        <View
+          style={styles.row}
+          key={`row_${i}`}
+        >
           <IotButton
             title={item1.title}
             bgColor="#63D5E2"
@@ -157,27 +134,15 @@ export default function Luzes() {
             }}
             onPress={() => {
               setTestando(true);
-              ToastAndroid.show(
-                `Alternando ${item1.title}`,
-                ToastAndroid.SHORT
-              );
+              ToastAndroid.show(`Alternando ${item1.title}`, ToastAndroid.SHORT);
               axios
-                .get(
-                  "http://" +
-                  device +
-                  "/cm?cmnd=Power" +
-                  item1.accessGPIO +
-                  "%20toggle"
-                )
+                .get("http://" + device + "/cm?cmnd=Power" + item1.accessGPIO + "%20toggle")
                 .then((response) => {
                   const newArray = elementos.map((item) => {
                     if (item.accessGPIO === item1.accessGPIO) {
                       return {
                         ...item,
-                        icon:
-                          item.icon === "lightbulb-on-outline"
-                            ? "lightbulb-off-outline"
-                            : "lightbulb-on-outline",
+                        icon: item.icon === "lightbulb-on-outline" ? "lightbulb-off-outline" : "lightbulb-on-outline",
                       };
                     } else {
                       return item;
@@ -187,10 +152,7 @@ export default function Luzes() {
                   setTestando(false);
                 })
                 .catch((error) => {
-                  ToastAndroid.show(
-                    `Erro ao alterar ${item1.title}`,
-                    ToastAndroid.SHORT
-                  );
+                  ToastAndroid.show(`Erro ao alterar ${item1.title}`, ToastAndroid.SHORT);
                 });
             }}
           >
@@ -203,34 +165,25 @@ export default function Luzes() {
           </IotButton>
           {item2 && (
             <IotButton
-            title={item2.title}
-            bgColor="#63D5E2"
-            type="secondary"
-            disabled={false}
+              title={item2.title}
+              bgColor="#63D5E2"
+              type="secondary"
+              disabled={false}
+              onLongPress={() => {
+                handleGPIO(item2);
+              }}
               onPress={() => {
                 setTestando(true);
-                ToastAndroid.show(
-                  `Alternando ${item2.title}`,
-                  ToastAndroid.SHORT
-                );
+                ToastAndroid.show(`Alternando ${item2.title}`, ToastAndroid.SHORT);
                 axios
-                  .get(
-                    "http://" +
-                    device +
-                    "/cm?cmnd=Power" +
-                    item2.accessGPIO +
-                    "%20toggle"
-                  )
+                  .get("http://" + device + "/cm?cmnd=Power" + item2.accessGPIO + "%20toggle")
                   .then((response) => {
                     console.log(response.data);
                     const newArray = elementos.map((item) => {
                       if (item.accessGPIO === item2.accessGPIO) {
                         return {
                           ...item,
-                          icon:
-                            item.icon === "lightbulb-on-outline"
-                              ? "lightbulb-off-outline"
-                              : "lightbulb-on-outline",
+                          icon: item.icon === "lightbulb-on-outline" ? "lightbulb-off-outline" : "lightbulb-on-outline",
                         };
                       } else {
                         return item;
@@ -240,20 +193,17 @@ export default function Luzes() {
                     setTestando(false);
                   })
                   .catch((error) => {
-                    ToastAndroid.show(
-                      `Erro ao alterar ${item2.title}`,
-                      ToastAndroid.SHORT
-                    );
+                    ToastAndroid.show(`Erro ao alterar ${item2.title}`, ToastAndroid.SHORT);
                   });
               }}
             >
-            <Icon
-              style={styles.icons}
-              name={item2.icon}
-              size={60}
-              color="#408B93"
-            />
-          </IotButton>
+              <Icon
+                style={styles.icons}
+                name={item2.icon}
+                size={60}
+                color="#408B93"
+              />
+            </IotButton>
           )}
         </View>
       );
@@ -263,30 +213,30 @@ export default function Luzes() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <View>
-        <FucshiaBar color="#63D5E2" title="Luzes" />
+        <FucshiaBar
+          color="#63D5E2"
+          title="Luzes"
+        />
       </View>
 
       <View style={styles.container}>
         {renderElementos(elementos)}
         <View style={styles.row}>
           {testando ? (
-            <View style={{ alignSelf: "center" }}>
+            <View style={{alignSelf: "center"}}>
               <ProgressBar
                 indeterminate={true}
                 width={300}
                 color={"#FF00FF"}
-                style={{ marginTop: 20 }}
+                style={{marginTop: 20}}
               />
             </View>
           ) : (
             <TouchableOpacity
               onPress={() => {
-                ToastAndroid.show(
-                  "Adicionar lâmapada não implementado, faça pela interface web",
-                  ToastAndroid.SHORT
-                );
+                ToastAndroid.show("Adicionar lâmapada não implementado, faça pela interface web", ToastAndroid.SHORT);
               }}
             >
               <View style={styles.itens}>
@@ -304,6 +254,14 @@ export default function Luzes() {
 
         <Flutuante />
       </View>
+      <ModalRename
+        showModal={showModal}
+        onClose={onClose}
+        item={item}
+        device={device}
+        gpio={elementos}
+        setGPIO={setElementos}
+      />
     </View>
   );
 }
@@ -322,7 +280,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,

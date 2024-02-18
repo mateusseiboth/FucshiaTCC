@@ -1,28 +1,19 @@
 import * as React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  ToastAndroid,
-  Alert,
-  ActivityIndicator,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import {Text, View, StyleSheet, TouchableOpacity, TextInput, ToastAndroid, Alert, ActivityIndicator} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 import SetupTemplate from "../../components/SetupTemplate/index.js";
 import SetupStyle from "../../components/SetupTemplate/style";
-import { ProgressBar, Button } from "react-native-paper";
+import {ProgressBar, Button} from "react-native-paper";
 import FucshiaModal from "../../components/Modal";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { recuperarDispositivo } from "../../utils/banco/index.js";
+import {recuperarDispositivo} from "../../utils/banco/index.js";
 import axios from "axios";
-import { Modal } from "react-native";
+import {Modal} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SmallButton from "../../components/smallButton.js";
 import setupStyle from "../../components/SetupTemplate/style";
-import { Color } from "../../../GlobalStyles.js";
-import { KeyboardAvoidingView } from 'react-native';
+import {Color} from "../../../GlobalStyles.js";
+import {KeyboardAvoidingView} from "react-native";
 
 export default function Setup2() {
   const navigation = useNavigation();
@@ -65,18 +56,8 @@ export default function Setup2() {
           console.log(result.data);
           const objectGPIO = result.data.GPIO.map((item, index) => {
             return {
-              funcao:
-                item > 250
-                  ? "Relay Invertido"
-                  : item > 190 && item < 200
-                    ? "Switch Normal"
-                    : "Não definido",
-              pino:
-                index >= 6 && index <= 7
-                  ? index + 3
-                  : index >= 8
-                    ? index + 4
-                    : index,
+              funcao: item > 250 ? "Relay Invertido" : item > 190 && item < 200 ? "Switch Normal" : "Não definido",
+              pino: index >= 6 && index <= 7 ? index + 3 : index >= 8 ? index + 4 : index,
               nome: "",
               chaveItem: item,
             };
@@ -89,18 +70,16 @@ export default function Setup2() {
             };
           });
 
-          axios
-            .get("http://" + device + "/cm?cmnd=FriendlyName")
-            .then((result) => {
-              objectRelay.forEach((item) => {
-                const friendlyNameKey = `FriendlyName${item.positionFriendly}`;
-                if (result.data[friendlyNameKey]) {
-                  item.nome = result.data[friendlyNameKey];
-                }
-              });
-              console.log(objectRelay);
-              setGPIO(objectRelay);
+          axios.get("http://" + device + "/cm?cmnd=FriendlyName").then((result) => {
+            objectRelay.forEach((item) => {
+              const friendlyNameKey = `FriendlyName${item.positionFriendly}`;
+              if (result.data[friendlyNameKey]) {
+                item.nome = result.data[friendlyNameKey];
+              }
             });
+            console.log(objectRelay);
+            setGPIO(objectRelay);
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -124,15 +103,17 @@ export default function Setup2() {
         const item2 = i + 1 < gpio.length ? gpio[i + 1] : null;
 
         selects.push(
-          <View key={i} style={styles.selectContainer}>
+          <View
+            key={i}
+            style={styles.selectContainer}
+          >
             <View>
               <SmallButton
                 onPress={() => {
                   handleGPIO(item1);
                 }}
-                text={`GPIO ${item1.pino} ${item1.nome == "" ? item1.funcao : item1.nome
-                  }`}
-                style={{ color: Color.colorBlack }}
+                text={`GPIO ${item1.pino} ${item1.nome == "" ? item1.funcao : item1.nome}`}
+                style={{color: Color.colorBlack}}
               ></SmallButton>
             </View>
             {item2 && (
@@ -141,8 +122,7 @@ export default function Setup2() {
                   onPress={() => {
                     handleGPIO(item2);
                   }}
-                  text={`GPIO ${item2.pino} ${item2.nome == "" ? item2.funcao : item2.nome
-                    }`}
+                  text={`GPIO ${item2.pino} ${item2.nome == "" ? item2.funcao : item2.nome}`}
                 ></SmallButton>
               </View>
             )}
@@ -166,25 +146,14 @@ export default function Setup2() {
 
   const handleSave = () => {
     axios
-      .get(
-        "http://" +
-        device +
-        "/cm?cmnd=FriendlyName" +
-        item.positionFriendly +
-        "%20" +
-        textInput
-      )
+      .get("http://" + device + "/cm?cmnd=FriendlyName" + item.positionFriendly + "%20" + textInput)
       .then((result) => {
         console.log(result.data);
-        ToastAndroid.show(
-          `Nome ${textInput} aplicado em GPIO${item.pino}`,
-          ToastAndroid.LONG
-        );
+        ToastAndroid.show(`Nome ${textInput} aplicado em GPIO${item.pino}`, ToastAndroid.LONG);
         const newArray = gpio.map((itemGPIO) => {
           return {
             ...itemGPIO,
-            nome:
-              itemGPIO.pino == item.pino ? textInput : itemGPIO.nome,
+            nome: itemGPIO.pino == item.pino ? textInput : itemGPIO.nome,
           };
         });
         setGPIO(newArray);
@@ -202,7 +171,7 @@ export default function Setup2() {
               style: "cancel",
             },
           ],
-          { cancelable: true }
+          {cancelable: true}
         );
       });
   };
@@ -210,39 +179,31 @@ export default function Setup2() {
   return (
     <KeyboardAvoidingView
       style={SetupStyle.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <SetupTemplate title="Associe as Placas" currentPage={2} />
+      <SetupTemplate
+        title="Associe as Placas"
+        currentPage={2}
+      />
       <View style={SetupStyle.containerItens}>
         <Text style={setupStyle.textInside}>
           Clique no GPIO para nomear
-          <Text style={[setupStyle.textInside]}>
-            {" "}
-            com o ambiente correspondente{" "}
-          </Text>
+          <Text style={[setupStyle.textInside]}> com o ambiente correspondente </Text>
         </Text>
-        <Text
-          style={[
-            SetupStyle.fucshia,
-            { textAlign: "center", fontSize: 18, paddingTop: 20, marginBottom: 20 },
-          ]}
-        >
+        <Text style={[SetupStyle.fucshia, {textAlign: "center", fontSize: 18, paddingTop: 20, marginBottom: 20}]}>
           Configurando {device}
         </Text>
 
-
         {loading ? (
-          <View style={{ alignSelf: "center" }}>
+          <View style={{alignSelf: "center"}}>
             <ActivityIndicator
               size={360}
               color={Color.colorFuchsia}
-              style={{ paddingBottom: 80 }}
+              style={{paddingBottom: 80}}
             />
           </View>
         ) : (
-          <>
-            {renderSelects()}
-          </>
+          <>{renderSelects()}</>
         )}
       </View>
 
@@ -265,10 +226,7 @@ export default function Setup2() {
           onPress={() => {
             const saveItem = async () => {
               try {
-                await AsyncStorage.setItem(
-                  "arrayConfigurado",
-                  JSON.stringify(gpio)
-                );
+                await AsyncStorage.setItem("arrayConfigurado", JSON.stringify(gpio));
               } catch (error) {
                 console.error("Erro ao salvar no AsyncStorage:", error);
               }
@@ -298,9 +256,7 @@ export default function Setup2() {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>
-                Renomeando GPIO{item.pino}
-              </Text>
+              <Text style={styles.modalTitle}>Renomeando GPIO{item.pino}</Text>
 
               <TextInput
                 style={styles.input}
@@ -311,10 +267,10 @@ export default function Setup2() {
 
               <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => onClose()}>
-                  <Text style={[styles.buttonText, { marginRight: 20 }]}>Fechar</Text>
+                  <Text style={[styles.buttonText, {marginRight: 20}]}>Fechar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleSave}>
-                  <Text style={[styles.buttonText, { marginLeft: 20 }]}>Salvar</Text>
+                  <Text style={[styles.buttonText, {marginLeft: 20}]}>Salvar</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -367,6 +323,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontWeight: "bold",
     fontSize: 18,
+    color: Color.colorBlack,
   },
   input: {
     height: 40,
@@ -376,6 +333,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 20,
     padding: 10,
+    color: Color.colorBlack,
   },
   buttonContainer: {
     flexDirection: "row",
