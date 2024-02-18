@@ -160,7 +160,7 @@ export default function Luzes() {
               style={styles.icons}
               name={item1.icon}
               size={60}
-              color="#408B93"
+              color="#63D5E2"
             />
           </IotButton>
           {item2 && (
@@ -201,7 +201,7 @@ export default function Luzes() {
                 style={styles.icons}
                 name={item2.icon}
                 size={60}
-                color="#408B93"
+                color="#63D5E2"
               />
             </IotButton>
           )}
@@ -271,12 +271,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 20,
   },
   itens: {
     zIndex: 4,
     width: 150,
     height: 150,
     margin: 10,
+    marginTop: 0,
     alignItems: "center",
     backgroundColor: "white",
     shadowColor: "#000",

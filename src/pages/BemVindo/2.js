@@ -49,6 +49,7 @@ export default function Setup2() {
       "Content-Type": "application/json",
     };
     try {
+      setLoading(true);
       console.log("http://" + databaseDevice + "/cm?cmnd=Template");
       const gpio = axios
         .get("http://" + device + "/cm?cmnd=Template", headers)
@@ -87,8 +88,9 @@ export default function Setup2() {
         });
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   function handleRoute(route) {
@@ -235,7 +237,7 @@ export default function Setup2() {
             handleRoute("Setup3");
           }}
           type="primary"
-          disabled={false}
+          disabled={loading}
         />
       </View>
       <FucshiaModal

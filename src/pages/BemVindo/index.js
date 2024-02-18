@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, Text, View, StyleSheet, ImageBackground } from "react-native";
+import { Image, Text, View, StyleSheet, ImageBackground, BackHandler } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { recuperarDispositivo } from "../../utils/banco";
 import { Color, FontFamily } from "../../../GlobalStyles";
@@ -50,6 +50,7 @@ export default function BemVindo() {
           />
         </View>
         <Text style={styles.title}>Fuchsia</Text>
+        
 
         <View style={[styles.bolinha, styles.bolinhaBaixo]} />
         <View style={styles.containerTitle}>
@@ -76,7 +77,7 @@ export default function BemVindo() {
                 textAlign: "center",
               }}
             >
-              Deixe me guiá-lo em sua primeira configuração.
+              Irei guiá-lo em sua primeira configuração.
             </Text>
           </View>
         </View>
@@ -90,8 +91,8 @@ export default function BemVindo() {
           />
           <View style={{ marginBottom: 15 }} />
           <MainButton
-            text="PULAR"
-            onPress={() => handleCommand("Mandei parar")}
+            text="CANCELAR"
+            onPress={() => BackHandler.exitApp()}
             type="secondary"
             disabled={false}
           />
