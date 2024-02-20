@@ -1,87 +1,143 @@
-import * as React from 'react';
-import { Image, Text,View, StyleSheet } from 'react-native';
-import FuchsiaButton from '../../components/FucshiaButton';
-import { useNavigation } from '@react-navigation/native';
+import * as React from "react";
+import { Image, Text, View, StyleSheet, ImageBackground, BackHandler } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { recuperarDispositivo } from "../../utils/banco";
+import { Color, FontFamily } from "../../../GlobalStyles";
+import MainButton from "../../components/mainButton";
 
+const backgroundSource = require("../../../assets/images/background.jpg");
+const logoSource = require("../../../assets/images/logo.png");
 
 export default function BemVindo() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const [loading, setLoading] = React.useState(false);
+  const [tryAgain, setTryAgain] = React.useState(false);
 
-    function handleRoute(route) {
-        navigation.navigate(route, {});
-    }
+  async function getDevices() {
+    setLoading(true);
+    const databaseDevice = await recuperarDispositivo();
+    console.log(databaseDevice);
 
-    function handleCommand(route) {
-        console.log(route)
-    }
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+    await getGPIO(databaseDevice);
+    setLoading(false);
+  }
 
-    return (
-        <View style={homeStyle.container}>
-                <View style={homeStyle.containerLogo}>
-                    <Image
-                        style={homeStyle.tinyLogo}
-                        resizeMode="contain"
-                        source={require('../../../assets/logoTipoSVGMasPNG.png')}
-                    />
-                     {/* <Text style={[homeStyle.fucshia, homeStyle.title]} >Fuchsia</Text> */}
-                </View> 
+  React.useEffect(() => {
+    getDevices();
+  }, [tryAgain]);
 
-            <View style={[homeStyle.bolinha, homeStyle.bolinhaBaixo]}></View>
-            <View style={homeStyle.containerTitle}>
-                <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
-                    Bem vindo ao
-                    <Text style={[homeStyle.fucshia]}> Fucshia Home Assistant</Text>
-                </Text>
-                <View>
-                    <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
-                        Deixe me guiá-lo em sua primeira configuração.
-                    </Text>
-                </View>
-            </View>
+  function handleRoute(route) {
+    navigation.navigate(route, {});
+  }
 
-            <View style={homeStyle.containerButton}>
-                <FuchsiaButton text="Avançar" onPress={() => handleRoute('Setup1')}></FuchsiaButton>
-                <FuchsiaButton text="Desisto, não quero minha casa automática" onPress={() => handleCommand('Mandei parar')}></FuchsiaButton>
-            </View>
-        
-            
+  function handleCommand(route) {
+    console.log(route);
+  }
+
+  return (
+    <ImageBackground source={backgroundSource} style={styles.backgroundImage}>
+      <View style={styles.container}>
+        <View style={styles.containerLogo}>
+          <Image
+            style={styles.tinyLogo}
+            resizeMode="contain"
+            source={logoSource}
+          />
         </View>
-    );
+        <Text style={styles.title}>Fuchsia</Text>
+        
+
+        <View style={[styles.bolinha, styles.bolinhaBaixo]} />
+        <View style={styles.containerTitle}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              alignSelf: "center",
+              color: Color.colorGray_100,
+              fontSize: 18,
+            }}
+          >
+            Bem vindo ao
+            <Text style={[styles.textColor]}> Fucshia Home Assistant!</Text>
+          </Text>
+          <View>
+            <Text
+              style={{
+                fontWeight: "bold",
+                alignSelf: "center",
+                color: Color.colorGray_100,
+                fontSize: 18,
+                marginHorizontal: 20,
+                paddingTop: 20,
+                textAlign: "center",
+              }}
+            >
+              Irei guiá-lo em sua primeira configuração.
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.containerButton}>
+          <MainButton
+            text="CONTINUAR"
+            onPress={() => handleRoute("Setup1")}
+            type="primary"
+            disabled={false}
+          />
+          <View style={{ marginBottom: 15 }} />
+          <MainButton
+            text="CANCELAR"
+            onPress={() => BackHandler.exitApp()}
+            type="secondary"
+            disabled={false}
+          />
+        </View>
+      </View>
+    </ImageBackground>
+  );
 }
 
-const homeStyle = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    containerLogo: {
-        flex: 1,
-        top: 0
-    },
-    containerTitle: {
-        flex: 1
-
-    },
-    containerButton: {
-        flex: 0.5,
-        width:150,
-        height:150,
-    },
-    tinyLogo: {
-        width: 200,
-        height: 200
-    },
-    fucshia: {
-        color: "#FF00FF",
-        fontWeight: "bold"
-    },
-    title: {
-        fontSize: 32,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center',
-    },
-    
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "stretch",
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  containerLogo: {
+    marginTop: 100,
+    opacity: 0.7,
+  },
+  containerTitle: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingBottom: 30,
+  },
+  containerButton: {
+    marginBottom: 100,
+  },
+  tinyLogo: {
+    width: 180,
+    height: 180,
+    marginBottom: 5,
+  },
+  title: {
+    color: Color.colorFuchsia,
+    fontFamily: FontFamily.montserratBold,
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  textColor: {
+    color: Color.colorFuchsia,
+  },
 });
