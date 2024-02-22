@@ -63,7 +63,7 @@ export default function Setup2() {
               chaveItem: item,
             };
           });
-          let objectRelay = objectGPIO.filter((item) => item.chaveItem > 250);
+          let objectRelay = objectGPIO.filter((item) => item.chaveItem > 250 || item.chaveItem < 200 && item.chaveItem > 190);
           objectRelay = objectRelay.map((item, index) => {
             return {
               ...item,
